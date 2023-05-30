@@ -17,7 +17,7 @@ public class SharedPreferencesHelper {
      *
      * @param context The application context.
      */
-    private SharedPreferencesHelper(Context context) {
+    public SharedPreferencesHelper(Context context) {
         sharedPreferences = context.getApplicationContext().getSharedPreferences(Config.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
     }
 
