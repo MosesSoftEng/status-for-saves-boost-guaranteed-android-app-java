@@ -6,4 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".presentation.login.LoginActivity">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:padding="16px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/whatsAppPhoneNumberTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Enter WhatsApp phone number."
+            app:helperText="Format: +country code phone"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/saveWhatsAppPhoneNumberButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            app:icon="@drawable/baseline_save_24" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
