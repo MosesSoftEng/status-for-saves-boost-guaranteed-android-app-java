@@ -63,4 +63,15 @@ public class SharedPreferencesHelper {
     public void removeString(String key) {
         sharedPreferences.edit().remove(key).apply();
     }
+
+
+    /**
+     * Check if a preference has a string value for the given key.
+     *
+     * @param key The key to check.
+     * @return True if the preference has a string value for the key, false otherwise.
+     */
+    public boolean hasString(String key) {
+        return sharedPreferences.contains(key) && sharedPreferences.getString(key, null) != null;
+    }
 }
