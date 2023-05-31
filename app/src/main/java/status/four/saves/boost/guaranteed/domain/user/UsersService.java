@@ -81,6 +81,15 @@ public class UsersService {
     }
 
     /**
+     * Check if the user is logged in.
+     *
+     * @return True if the user is logged in, false otherwise.
+     */
+    public boolean isUserLoggedIn() {
+        return sharedPreferencesHelper.hasString(SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER);
+    }
+
+    /**
      * The callback interface for handling login results.
      */
     public interface Callback {
