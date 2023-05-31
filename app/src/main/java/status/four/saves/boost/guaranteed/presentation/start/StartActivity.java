@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.UsersService;
+import status.four.saves.boost.guaranteed.presentation.dash.DashActivity;
 import status.four.saves.boost.guaranteed.presentation.login.LoginActivity;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
@@ -22,7 +23,7 @@ public class StartActivity extends AppCompatActivity {
         usersService = new UsersService(getApplicationContext());
 
         if(usersService.isUserLoggedIn())
-            Logger.i("user logged in");
+            startActivity(new Intent(StartActivity.this, DashActivity.class));
         else
             startActivity(new Intent(StartActivity.this, LoginActivity.class));
     }
