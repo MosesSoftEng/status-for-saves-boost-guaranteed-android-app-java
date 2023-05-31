@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             UsersService usersService = new UsersService(getApplicationContext());
 
-            usersService.LoginUser(whatsAppPhoneNumber, new UsersService.Callback() {
+            usersService.loginUser(whatsAppPhoneNumber, new UsersService.Callback() {
                 @Override
                 public void onSuccess(String message) {
                     Logger.d(message);
