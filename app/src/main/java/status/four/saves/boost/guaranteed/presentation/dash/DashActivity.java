@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.databinding.ActivityDashBinding;
 
 public class DashActivity extends AppCompatActivity {
