@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.presentation.dash.ui.home;
+package status.four.saves.boost.guaranteed.presentation.dash.ui.users;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 import status.four.saves.boost.guaranteed.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment {
+public class NewUsersFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        NewUsersViewModel newUsersViewModel =
+                new ViewModelProvider(this).get(NewUsersViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        newUsersViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="status.four.saves.boost.guaranteed.presentation.dash.ui.home.HomeFragment"
+        android:name="status.four.saves.boost.guaranteed.presentation.dash.ui.users.NewUsersFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
