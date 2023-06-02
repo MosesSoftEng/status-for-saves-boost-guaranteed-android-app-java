@@ -18,7 +18,7 @@ import status.four.saves.boost.guaranteed.shared.Logger;
 public class DashboardViewModel extends AndroidViewModel {
     UsersApi usersApi;
     private final MutableLiveData<ArrayList<User>> users;
-    private String lastIndex = "0";
+    private long lastIndex = 0;
 
     public DashboardViewModel(@NonNull Application application) {
         super(application);
@@ -33,7 +33,7 @@ public class DashboardViewModel extends AndroidViewModel {
     }
 
     public void getNewUsers() {
-        usersApi.getUsers(0, 2, new UsersApi.Callback() {
+        usersApi.getUsers(lastIndex, 2, new UsersApi.Callback() {
             @Override
             public void onSuccess(String message) {
                 Logger.d("DashboardViewModel fetchNewUsers usersApi.getUsers, message:", message);
@@ -61,10 +61,9 @@ public class DashboardViewModel extends AndroidViewModel {
         currentList.addAll(usersList);
         newUsers.setValue(currentList);
 
-        // Assign lastIndex User phone value
-//        if (!usersList.isEmpty()) {
-//            User lastUser = usersList.get(usersList.size() - 1);
-//            lastIndex = String.valueOf(lastUser.getPhone());
-//        }
+        if (!usersList.isEmpty()) {
+            User lastUser = usersList.get(usersList.size() - 1);
+            lastIndex = lastUser.getPhone();
+        }
     }
 }
