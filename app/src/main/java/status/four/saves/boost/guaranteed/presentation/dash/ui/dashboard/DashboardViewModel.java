@@ -25,7 +25,6 @@ public class DashboardViewModel extends AndroidViewModel {
     public DashboardViewModel(@NonNull Application application) {
         super(application);
         users = new MutableLiveData<>();
-        users.setValue(new ArrayList<>());
 
         usersApi = UsersApi.getInstance(application.getApplicationContext());
     }
