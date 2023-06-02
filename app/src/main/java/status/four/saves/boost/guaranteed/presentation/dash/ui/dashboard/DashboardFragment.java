@@ -48,7 +48,7 @@ public class DashboardFragment extends Fragment {
         newUsersSwipeRefreshLayout = binding.newUsersSwipeRefreshLayout;
         newUsersSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
 
-        newUsersRecyclerViewAdapter = new NewUsersRecyclerViewAdapter();
+        newUsersRecyclerViewAdapter = new NewUsersRecyclerViewAdapter(dashboardViewModel);
         newUserRecyclerView = binding.newUsersRecyclerView;
         newUserRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         newUserRecyclerView.setAdapter(newUsersRecyclerViewAdapter);
