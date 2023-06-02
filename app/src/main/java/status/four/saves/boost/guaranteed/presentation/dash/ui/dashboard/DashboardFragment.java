@@ -20,39 +20,34 @@ import status.four.saves.boost.guaranteed.shared.Logger;
 
 
 public class DashboardFragment extends Fragment {
+    DashboardViewModel dashboardViewModel;
     private FragmentDashboardBinding binding;
     private RecyclerView newUserRecyclerView;
     private NewUsersRecyclerViewAdapter newUsersRecyclerViewAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         newUsersRecyclerViewAdapter = new NewUsersRecyclerViewAdapter();
-
         newUserRecyclerView = binding.newUsersRecyclerView;
         newUserRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         newUserRecyclerView.setAdapter(newUsersRecyclerViewAdapter);
         newUserRecyclerView.addOnScrollListener(recyclerViewOnScrollListener());
 
-        dashboardViewModel.getUsers().observe(
-                getViewLifecycleOwner(),
-                new Observer<ArrayList<User>>() {
-                    @Override
-                    public void onChanged(ArrayList<User> users) {
-                        newUsersRecyclerViewAdapter.setData(users);
-                        newUsersRecyclerViewAdapter.notifyDataSetChanged();
-                    }
-                }
-        );
+        dashboardViewModel.getUsers().observe(getViewLifecycleOwner(), this::updateUserList);
 
-        dashboardViewModel.getNewUsers();
+        dashboardViewModel.fetchUsers();
 
         return root;
+    }
+
+    private void updateUserList(ArrayList<User> users) {
+        newUsersRecyclerViewAdapter.setData(users);
+        newUsersRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     private RecyclerView.OnScrollListener recyclerViewOnScrollListener() {
@@ -63,11 +58,12 @@ public class DashboardFragment extends Fragment {
 
                 if (!recyclerView.canScrollVertically(1)) {
                     Logger.d("DashboardFragment recyclerViewOnScrollListener onScrolled, !recyclerView.canScrollVertically");
+
+                    dashboardViewModel.fetchUsers();
                 }
             }
         };
     }
-
 
     @Override
     public void onDestroyView() {
