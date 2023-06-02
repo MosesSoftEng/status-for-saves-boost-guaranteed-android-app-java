@@ -115,4 +115,13 @@ public class DashboardFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(dashboardViewModel.getSavedUsers().getValue() != null) {
+            dashboardViewModel.removeUserIfSaved(dashboardViewModel.getSavedUsers().getValue());
+        }
+    }
 }
