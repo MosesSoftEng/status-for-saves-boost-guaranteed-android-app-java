@@ -36,9 +36,8 @@ public class UsersApi {
         return instance;
     }
 
-    public static void getUsers(int lastIndex, int limit, Callback callback) {
-        JSONObject requestBody = new JSONObject();
-        Map<String, Integer> params = new HashMap<>();
+    public static void getUsers(long lastIndex, int limit, Callback callback) {
+        Map<String, Object> params = new HashMap<>();
         params.put("lastIndex", lastIndex);
         params.put("limit", limit);
 
@@ -47,7 +46,7 @@ public class UsersApi {
             API_URL + "/users",
             Request.Method.GET,
                 params,
-            requestBody,
+            null,
             new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
