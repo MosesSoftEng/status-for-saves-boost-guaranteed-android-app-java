@@ -121,7 +121,7 @@ public class DashboardFragment extends Fragment {
         super.onResume();
 
         if(dashboardViewModel.getSavedUsers().getValue() != null) {
-            dashboardViewModel.removeUserIfSaved(dashboardViewModel.getSavedUsers().getValue());
+            dashboardViewModel.removeUserIfContactExists(dashboardViewModel.getSavedUsers().getValue());
         }
     }
 }
