@@ -14,17 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import status.four.saves.boost.guaranteed.data.api.UsersApi;
 import status.four.saves.boost.guaranteed.databinding.FragmentDashboardBinding;
 import status.four.saves.boost.guaranteed.domain.user.User;
+import status.four.saves.boost.guaranteed.shared.Logger;
 
 
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     private RecyclerView newUserRecyclerView;
     private NewUsersRecyclerViewAdapter newUsersRecyclerViewAdapter;
-
-    UsersApi usersApi;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,11 +32,12 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        newUserRecyclerView = binding.newUsersRecyclerView;
-
-        newUserRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         newUsersRecyclerViewAdapter = new NewUsersRecyclerViewAdapter();
+
+        newUserRecyclerView = binding.newUsersRecyclerView;
+        newUserRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         newUserRecyclerView.setAdapter(newUsersRecyclerViewAdapter);
+        newUserRecyclerView.addOnScrollListener(recyclerViewOnScrollListener());
 
         dashboardViewModel.getUsers().observe(
                 getViewLifecycleOwner(),
@@ -55,6 +54,20 @@ public class DashboardFragment extends Fragment {
 
         return root;
     }
+
+    private RecyclerView.OnScrollListener recyclerViewOnScrollListener() {
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    Logger.d("DashboardFragment recyclerViewOnScrollListener onScrolled, !recyclerView.canScrollVertically");
+                }
+            }
+        };
+    }
+
 
     @Override
     public void onDestroyView() {
