@@ -5,7 +5,7 @@ public class Config {
     public static boolean SHOW_LOGS = true;
 
     // Network
-    public static final String API_URL = "https://kt99gjkxv5.execute-api.us-east-1.amazonaws.com/dev/v1";
+    public static final String API_URL = "https://ywu7goj8i4.execute-api.us-east-1.amazonaws.com/dev/v1";
 
     // Storage
     public static final String SHARED_PREFS_NAME = APP_NAME_ID;
