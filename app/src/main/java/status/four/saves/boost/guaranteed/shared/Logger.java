@@ -9,7 +9,7 @@ import android.util.Log;
 public class Logger {
     private static final String TAG = APP_NAME_ID + ".logs";
 
-    public static void d(String... messages) {
+    public static void d(Object... messages) {
         if (SHOW_LOGS) {
             StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
             StackTraceElement caller = stackTrace[4];
@@ -19,8 +19,8 @@ public class Logger {
 
             StringBuilder finalMessage = new StringBuilder();
 
-            for (String message : messages) {
-                finalMessage.append(" ").append(message);
+            for (Object message : messages) {
+                finalMessage.append(" ").append(String.valueOf(message));
             }
 
             Log.d(TAG, logMessage + finalMessage.toString());
