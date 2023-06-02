@@ -18,9 +18,16 @@ import status.four.saves.boost.guaranteed.shared.Logger;
 
 public class NewUsersRecyclerViewAdapter extends RecyclerView.Adapter<NewUsersRecyclerViewAdapter.ViewHolder> {
     private ArrayList<User> newUsers = new ArrayList<>();
+    private DashboardViewModel dashboardViewModel;
 
-    public void setData(ArrayList<User> newUsers ) {
+
+    public NewUsersRecyclerViewAdapter(DashboardViewModel dashboardViewModel) {
+        this.dashboardViewModel = dashboardViewModel;
+    }
+
+    public void setData(ArrayList<User> newUsers) {
         this.newUsers = newUsers;
+        this.dashboardViewModel = dashboardViewModel;
     }
 
     @NonNull
@@ -41,7 +48,8 @@ public class NewUsersRecyclerViewAdapter extends RecyclerView.Adapter<NewUsersRe
         return newUsers.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        User user;
         TextView phoneTextView;
         Button savePhoneButton;
         public ViewHolder(@NonNull View itemView) {
@@ -49,10 +57,19 @@ public class NewUsersRecyclerViewAdapter extends RecyclerView.Adapter<NewUsersRe
 
             phoneTextView = itemView.findViewById(R.id.phoneTextView);
             savePhoneButton = itemView.findViewById(R.id.savePhoneButton);
+            savePhoneButton.setOnClickListener(this);
         }
 
         public void populateViews(User user) {
+            this.user = user;
             phoneTextView.setText(String.valueOf(user.getPhone()));
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(view == savePhoneButton) {
+                dashboardViewModel.saveContact(user);
+            }
         }
     }
 }
