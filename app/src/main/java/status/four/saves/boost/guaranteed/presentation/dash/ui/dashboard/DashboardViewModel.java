@@ -91,8 +91,29 @@ public class DashboardViewModel extends AndroidViewModel {
         contactsRepo.saveContact(user);
     }
 
+    /**
+     * Removes the given user from the user list if a corresponding contact exists.
+     * If the contact exists, the user will be removed from the list.
+     *
+     * @param user The user to be checked and removed if a contact exists.
+     */
+    public void removeUserIfContactExists(User user) {
+        String contactName = "4saves" + user.getPhone();
+        String phoneNumber = "" + user.getPhone();
+
+        if (contactsRepo.checkContactExists(contactName, phoneNumber)) {
+            removeUser(user);
+        }
+    }
+
+    /**
+     * Removes the given user from the user list.
+     *
+     * @param user The user to be removed from the list.
+     */
     public void removeUser(User user) {
         ArrayList<User> userList = users.getValue();
+
         if (userList != null) {
             userList.remove(user);
             users.setValue(userList);
