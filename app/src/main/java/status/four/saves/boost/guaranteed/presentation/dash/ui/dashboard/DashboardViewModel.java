@@ -68,4 +68,8 @@ public class DashboardViewModel extends AndroidViewModel {
             lastIndex = lastUser.getPhone();
         }
     }
+
+    public void clearUsers() {
+        users.setValue(new ArrayList<>());
+    }
 }
