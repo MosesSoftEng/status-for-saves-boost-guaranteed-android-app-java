@@ -23,11 +23,13 @@ public class DashboardViewModel extends AndroidViewModel {
     UsersApi usersApi;
     ContactsRepo contactsRepo;
     private final MutableLiveData<ArrayList<User>> users;
+    private final MutableLiveData<User> savedUser;
     private long lastIndex = 0;
 
     public DashboardViewModel(@NonNull Application application, Activity activity) {
         super(application);
         users = new MutableLiveData<>();
+        savedUser = new MutableLiveData<>();
 
         usersApi = UsersApi.getInstance(application.getApplicationContext());
         contactsRepo = ContactsRepo.getInstance(activity);
@@ -35,6 +37,10 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public LiveData<ArrayList<User>> getUsers() {
         return users;
+    }
+
+    public LiveData<User> getSavedUsers() {
+        return savedUser;
     }
 
     public void fetchUsers() {
@@ -79,6 +85,8 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public void saveContact(User user) {
         Logger.d("Add to contact: ", user.toString());
+
+        savedUser.setValue(user);
 
         contactsRepo.saveContact(user);
     }
