@@ -2,7 +2,9 @@ package status.four.saves.boost.guaranteed.data.storage;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import status.four.saves.boost.guaranteed.domain.user.User;
@@ -54,6 +56,37 @@ public class ContactsRepo {
             } else {
                 permission.requestPermission(Manifest.permission.WRITE_CONTACTS, 1);
             }
+        }
+    }
+
+    /**
+     * Checks if a contact with the given name and phone number exists in the phone contacts.
+     *
+     * @param name        The name of the contact to check.
+     * @param phoneNumber The phone number of the contact to check.
+     * @return {@code true} if the contact exists, {@code false} otherwise.
+     */
+    public boolean checkContactExists(String name, String phoneNumber) {
+        String[] projection = {
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                ContactsContract.CommonDataKinds.Phone.NUMBER
+        };
+
+        String selection = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " = ? AND " +
+                ContactsContract.CommonDataKinds.Phone.NUMBER + " = ?";
+        String[] selectionArgs = {name, phoneNumber};
+
+        try (Cursor cursor = activity.getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                projection,
+                selection,
+                selectionArgs,
+                null
+        )) {
+            return cursor != null && cursor.getCount() > 0;
+        } catch (Exception e) {
+            Logger.e("Error checking contact existence: " + e.getMessage());
+            return false;
         }
     }
 }
