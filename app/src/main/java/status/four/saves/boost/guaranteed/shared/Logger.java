@@ -11,9 +11,19 @@ public class Logger {
 
     public static void d(String... messages) {
         if (SHOW_LOGS) {
+            StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+            StackTraceElement caller = stackTrace[4];
+            String methodName = caller.getMethodName();
+            String className = caller.getClassName();
+            String logMessage = "[" + className + "." + methodName + "] ";
+
+            StringBuilder finalMessage = new StringBuilder();
+
             for (String message : messages) {
-                Log.d(TAG, message);
+                finalMessage.append(" ").append(message);
             }
+
+            Log.d(TAG, logMessage + finalMessage.toString());
         }
     }
 
