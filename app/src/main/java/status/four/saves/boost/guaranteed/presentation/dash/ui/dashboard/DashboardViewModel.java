@@ -34,7 +34,7 @@ public class DashboardViewModel extends AndroidViewModel {
         return users;
     }
 
-    public void getNewUsers() {
+    public void fetchUsers() {
         usersApi.getUsers(lastIndex, paginationCount, new UsersApi.Callback() {
             @Override
             public void onSuccess(String message) {
