@@ -71,5 +71,6 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public void clearUsers() {
         users.setValue(new ArrayList<>());
+        lastIndex = 0;
     }
 }
