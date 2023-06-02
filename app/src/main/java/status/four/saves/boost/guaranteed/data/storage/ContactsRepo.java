@@ -1,7 +1,5 @@
 package status.four.saves.boost.guaranteed.data.storage;
 
-import static status.four.saves.boost.guaranteed.shared.Config.CONTACT_INSERT_REQUEST_CODE;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -40,7 +38,7 @@ public class ContactsRepo {
                 intent.putExtra(ContactsContract.Intents.Insert.NAME, "4saves" + user.getPhone());
                 intent.putExtra(ContactsContract.Intents.Insert.PHONE, "" + user.getPhone());
 
-                activity.startActivityForResult(intent, CONTACT_INSERT_REQUEST_CODE);
+                activity.startActivity(intent);
             } else {
                 if (!permission.shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
                     // TODO: Guide user to set permission manually.
