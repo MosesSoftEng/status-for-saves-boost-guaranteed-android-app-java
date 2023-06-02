@@ -90,4 +90,12 @@ public class DashboardViewModel extends AndroidViewModel {
 
         contactsRepo.saveContact(user);
     }
+
+    public void removeUser(User user) {
+        ArrayList<User> userList = users.getValue();
+        if (userList != null) {
+            userList.remove(user);
+            users.setValue(userList);
+        }
+    }
 }
