@@ -2,6 +2,7 @@ package status.four.saves.boost.guaranteed.presentation.dash.ui.dashboard;
 
 import static status.four.saves.boost.guaranteed.shared.Config.paginationCount;
 
+import android.app.Activity;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -14,19 +15,22 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 import status.four.saves.boost.guaranteed.data.api.UsersApi;
+import status.four.saves.boost.guaranteed.data.storage.ContactsRepo;
 import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
 public class DashboardViewModel extends AndroidViewModel {
     UsersApi usersApi;
+    ContactsRepo contactsRepo;
     private final MutableLiveData<ArrayList<User>> users;
     private long lastIndex = 0;
 
-    public DashboardViewModel(@NonNull Application application) {
+    public DashboardViewModel(@NonNull Application application, Activity activity) {
         super(application);
         users = new MutableLiveData<>();
 
         usersApi = UsersApi.getInstance(application.getApplicationContext());
+        contactsRepo = ContactsRepo.getInstance(activity);
     }
 
     public LiveData<ArrayList<User>> getUsers() {
@@ -71,5 +75,11 @@ public class DashboardViewModel extends AndroidViewModel {
     public void clearUsers() {
         users.setValue(new ArrayList<>());
         lastIndex = 0;
+    }
+
+    public void saveContact(User user) {
+        Logger.d("Add to contact: ", user.toString());
+
+        contactsRepo.saveContact(user);
     }
 }
