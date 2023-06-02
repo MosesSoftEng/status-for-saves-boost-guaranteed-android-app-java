@@ -53,12 +53,12 @@ public class VolleyHelper {
      * @param successListener the listener to be called on successful response
      * @param errorListener   the listener to be called on error response
      */
-    public void makeRequest(String url, int method, Map<String, String> params, JSONObject requestBody, Response.Listener<JSONObject> successListener, Response.ErrorListener errorListener) {
+    public <T> void makeRequest(String url, int method, Map<String, T> params, JSONObject requestBody, Response.Listener<JSONObject> successListener, Response.ErrorListener errorListener) {
         if (params != null && !params.isEmpty()) {
             StringBuilder queryStringBuilder = new StringBuilder();
-            for (Map.Entry<String, String> entry : params.entrySet()) {
+            for (Map.Entry<String, T> entry : params.entrySet()) {
                 String key = entry.getKey();
-                String value = entry.getValue();
+                T value = entry.getValue();
 
                 try {
                     if (queryStringBuilder.length() > 0) {
@@ -66,7 +66,7 @@ public class VolleyHelper {
                     }
                     queryStringBuilder.append(URLEncoder.encode(key, "UTF-8"))
                             .append("=")
-                            .append(URLEncoder.encode(value, "UTF-8"));
+                            .append(URLEncoder.encode(String.valueOf(value), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     throw new RuntimeException(e);
                 }
