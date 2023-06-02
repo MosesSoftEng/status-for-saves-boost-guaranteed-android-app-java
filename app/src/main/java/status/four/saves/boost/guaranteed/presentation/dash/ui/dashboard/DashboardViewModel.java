@@ -1,5 +1,7 @@
 package status.four.saves.boost.guaranteed.presentation.dash.ui.dashboard;
 
+import static status.four.saves.boost.guaranteed.shared.Config.paginationCount;
+
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -33,7 +35,7 @@ public class DashboardViewModel extends AndroidViewModel {
     }
 
     public void getNewUsers() {
-        usersApi.getUsers(lastIndex, 2, new UsersApi.Callback() {
+        usersApi.getUsers(lastIndex, paginationCount, new UsersApi.Callback() {
             @Override
             public void onSuccess(String message) {
                 Logger.d("DashboardViewModel fetchNewUsers usersApi.getUsers, message:", message);
