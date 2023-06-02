@@ -38,4 +38,12 @@ public class User {
 
         return userList;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "phone=" + phone +
+                ", date=" + date +
+                '}';
+    }
 }
