@@ -9,8 +9,12 @@ import android.util.Log;
 public class Logger {
     private static final String TAG = APP_NAME_ID + ".logs";
 
-    public static void d(String message) {
-        if(SHOW_LOGS) Log.d(TAG, message);
+    public static void d(String... messages) {
+        if (SHOW_LOGS) {
+            for (String message : messages) {
+                Log.d(TAG, message);
+            }
+        }
     }
 
     public static void e(String message) {
