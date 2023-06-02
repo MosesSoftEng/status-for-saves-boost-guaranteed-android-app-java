@@ -58,7 +58,7 @@ public class UsersService {
 
             // TODO: Create UserAPI class
             volleyHelper.makeRequest(
-                    API_URL + "/auth",
+                    API_URL + "/login",
                     Request.Method.POST,
                     null,
                     requestBody,
