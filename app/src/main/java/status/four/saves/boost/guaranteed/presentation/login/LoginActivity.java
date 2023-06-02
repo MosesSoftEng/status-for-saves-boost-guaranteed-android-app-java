@@ -29,6 +29,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        Logger.d("LoginActivity onClick saveWhatsAppPhoneNumberButton");
+
         if(view == saveWhatsAppPhoneNumberButton) {
             String whatsAppPhoneNumber = whatsAppPhoneNumberTextInputLayout.getEditText().getText().toString();
 
@@ -43,9 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             usersService.loginUser(whatsAppPhoneNumber, new UsersService.Callback() {
                 @Override
                 public void onSuccess(String message) {
-                    Logger.d(message);
-
-
+                    Logger.d("LoginActivity onClick usersService.loginUser, message:", message);
                 }
 
                 @Override
