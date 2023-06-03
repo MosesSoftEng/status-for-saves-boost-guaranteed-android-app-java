@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import status.four.saves.boost.guaranteed.databinding.FragmentNotificationsBinding;
+import status.four.saves.boost.guaranteed.databinding.FragmentSavedBinding;
 
 public class SavedFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentSavedBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         SavedViewModel savedViewModel =
                 new ViewModelProvider(this).get(SavedViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentSavedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;
