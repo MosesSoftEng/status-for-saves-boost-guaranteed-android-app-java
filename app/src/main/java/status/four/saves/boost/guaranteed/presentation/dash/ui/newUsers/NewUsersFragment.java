@@ -22,7 +22,7 @@ import status.four.saves.boost.guaranteed.shared.Logger;
 /**
  * Fragment class for displaying the dashboard screen.
  */
-public class DashboardFragment extends Fragment {
+public class NewUsersFragment extends Fragment {
     private DashboardViewModel dashboardViewModel;
     private FragmentDashboardBinding binding;
     private SwipeRefreshLayout newUsersSwipeRefreshLayout;
