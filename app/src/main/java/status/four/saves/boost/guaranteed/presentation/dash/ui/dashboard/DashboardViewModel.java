@@ -1,5 +1,6 @@
 package status.four.saves.boost.guaranteed.presentation.dash.ui.dashboard;
 
+import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER;
 import static status.four.saves.boost.guaranteed.shared.Config.paginationCount;
 
 import android.app.Activity;
@@ -14,14 +15,19 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import status.four.saves.boost.guaranteed.data.api.ContactsApi;
 import status.four.saves.boost.guaranteed.data.api.UsersApi;
 import status.four.saves.boost.guaranteed.data.storage.ContactsRepo;
+import status.four.saves.boost.guaranteed.data.storage.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
 public class DashboardViewModel extends AndroidViewModel {
     UsersApi usersApi;
+    ContactsApi contactsApi;
     ContactsRepo contactsRepo;
+
+    private SharedPreferencesHelper sharedPreferencesHelper;
     private final MutableLiveData<ArrayList<User>> users;
     private final MutableLiveData<User> savedUser;
     private long lastIndex = 0;
@@ -32,7 +38,9 @@ public class DashboardViewModel extends AndroidViewModel {
         savedUser = new MutableLiveData<>();
 
         usersApi = UsersApi.getInstance(application.getApplicationContext());
+        contactsApi = ContactsApi.getInstance(application.getApplicationContext());
         contactsRepo = ContactsRepo.getInstance(activity);
+        sharedPreferencesHelper = SharedPreferencesHelper.getInstance(application.getApplicationContext());
     }
 
     public LiveData<ArrayList<User>> getUsers() {
@@ -87,7 +95,6 @@ public class DashboardViewModel extends AndroidViewModel {
         Logger.d("Add to contact: ", user.toString());
 
         savedUser.setValue(user);
-
         contactsRepo.saveContact(user);
     }
 
@@ -102,6 +109,20 @@ public class DashboardViewModel extends AndroidViewModel {
         String phoneNumber = "" + user.getPhone();
 
         if (contactsRepo.checkContactExists(contactName, phoneNumber)) {
+            String loggedInUserPhoneNumber = sharedPreferencesHelper.getString(SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER, "");
+
+            contactsApi.saveContact(loggedInUserPhoneNumber, user.getPhone(), new ContactsApi.Callback() {
+                @Override
+                public void onSuccess(String message) {
+                    Logger.d(message);
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    Logger.d(throwable.getMessage());
+                }
+            });
+
             removeUser(user);
         }
     }
