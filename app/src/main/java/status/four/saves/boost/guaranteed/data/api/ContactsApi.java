@@ -33,6 +33,13 @@ public class ContactsApi {
         return instance;
     }
 
+    /**
+     * Saves a contact by making a POST request to the API.
+     *
+     * @param loggedInUserPhoneNumber The phone number of the logged-in user.
+     * @param userPhoneNumber         The phone number of the contact to save.
+     * @param callback                The callback to handle the saveContact operation result.
+     */
     public void saveContact(String loggedInUserPhoneNumber, long userPhoneNumber, ContactsApi.Callback callback) {
         try {
         JSONObject requestBody = new JSONObject();
@@ -44,24 +51,16 @@ public class ContactsApi {
                 Request.Method.POST,
                 null,
                 requestBody,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Logger.d(response.toString());
-
-                        callback.onSuccess(response.toString());
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Logger.d(error.getMessage());
-
-                        callback.onError(error);
-                    }
+                response -> {
+                    Logger.d(response.toString());
+                    callback.onSuccess(response.toString());
+                },
+                error -> {
+                    Logger.d(error.getMessage());
+                    callback.onError(error);
                 });
         } catch (JSONException error) {
             error.printStackTrace();
-
             callback.onError(error);
         }
     }
