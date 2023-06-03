@@ -56,7 +56,7 @@ public class UsersService {
             JSONObject requestBody = new JSONObject();
             requestBody.put("whatsAppPhoneNumber", whatsAppPhoneNumber);
 
-            // TODO: Create UserAPI class
+            // TODO: Create AuthApi class
             volleyHelper.makeRequest(
                     API_URL + "/login",
                     Request.Method.POST,
