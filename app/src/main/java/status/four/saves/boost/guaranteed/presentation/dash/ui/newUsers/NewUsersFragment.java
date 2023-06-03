@@ -49,6 +49,7 @@ public class NewUsersFragment extends Fragment {
         newUsersSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
 
         newUsersRecyclerViewAdapter = new NewUsersRecyclerViewAdapter(newUserViewModel);
+
         newUserRecyclerView = binding.newUsersRecyclerView;
         newUserRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         newUserRecyclerView.setAdapter(newUsersRecyclerViewAdapter);
