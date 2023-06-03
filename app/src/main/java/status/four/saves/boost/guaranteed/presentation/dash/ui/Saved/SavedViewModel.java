@@ -16,7 +16,7 @@ import status.four.saves.boost.guaranteed.domain.contact.Contact;
 public class SavedViewModel extends AndroidViewModel {
     ContactsRepo contactsRepo;
 
-    private final MutableLiveData<ArrayList<Contact>> contacts;
+    public MutableLiveData<ArrayList<Contact>> contacts;
 
     public SavedViewModel(@NonNull Application application, Activity activity) {
         super(application);
@@ -33,4 +33,10 @@ public class SavedViewModel extends AndroidViewModel {
     public void fetchContacts() {
         contacts.setValue(contactsRepo.getContacts());
     }
-}
+
+    public void deleteContact(Contact contact) {
+        if(contactsRepo.deleteContact(contact)){
+            removeContact(contact);
+        }
+    }
+
