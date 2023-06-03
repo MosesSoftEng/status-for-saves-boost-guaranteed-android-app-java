@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 import status.four.saves.boost.guaranteed.databinding.FragmentSavedBinding;
 import status.four.saves.boost.guaranteed.domain.contact.Contact;
-import status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers.NewUsersRecyclerViewAdapter;
 
 public class SavedFragment extends Fragment {
     SavedViewModel savedViewModel;
@@ -34,6 +33,9 @@ public class SavedFragment extends Fragment {
         binding = FragmentSavedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        savedSwipeRefreshLayout = binding.savedSwipeRefreshLayout;
+        savedSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
+
         savedRecyclerViewAdapter = new SavedRecyclerViewAdapter(savedViewModel);
 
         savedRecyclerView = binding.savedRecyclerView;
@@ -44,17 +46,24 @@ public class SavedFragment extends Fragment {
 
         fetchContacts();
 
-
         return root;
     }
 
     private void fetchContacts() {
+        savedSwipeRefreshLayout.setRefreshing(true);
         savedViewModel.fetchContacts();
     }
 
     private void updateContactsList(ArrayList<Contact> contacts) {
         savedRecyclerViewAdapter.setData(contacts);
         savedRecyclerViewAdapter.notifyDataSetChanged();
+
+        savedSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void refreshData() {
+        savedViewModel.contacts.setValue(new ArrayList<>());
+        fetchContacts();
     }
 
     @Override
