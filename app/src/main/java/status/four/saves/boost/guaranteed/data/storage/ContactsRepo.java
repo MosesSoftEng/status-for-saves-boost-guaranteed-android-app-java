@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,36 +105,91 @@ public class ContactsRepo {
     public ArrayList<Contact> getContacts() {
         ArrayList<Contact> contactList = new ArrayList<>();
 
-        String[] projection = {
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                ContactsContract.CommonDataKinds.Phone.NUMBER
-        };
+        // TODO: find a better way to check for permissions.
+        if(permission.isPermissionGranted(Manifest.permission.WRITE_CONTACTS)) {
+            if(permission.isPermissionGranted(Manifest.permission.READ_CONTACTS)) {
+                String[] projection = {
+                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                        ContactsContract.CommonDataKinds.Phone.NUMBER
+                };
 
-        String selection = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " LIKE ?";
-        String[] selectionArgs = {"4saves%"};
+                String selection = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " LIKE ?";
+                String[] selectionArgs = {"4saves%"};
 
-        Cursor cursor = activity.getContentResolver().query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                projection,
-                selection,
-                selectionArgs,
-                null
-        );
+                Cursor cursor = activity.getContentResolver().query(
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null
+                );
 
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                @SuppressLint("Range") String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                if (cursor != null) {
+                    while (cursor.moveToNext()) {
+                        @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                        @SuppressLint("Range") String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-                Logger.d(name, phoneNumber);
+                        Logger.d(name, phoneNumber);
 
-                Contact contact = new Contact(name.replace("4saves", ""), phoneNumber);
-                contactList.add(contact);
+                        Contact contact = new Contact(name.replace("4saves", ""), phoneNumber);
+                        contactList.add(contact);
+                    }
+
+                    cursor.close();
+                }
+            } else {
+                permission.requestPermission(Manifest.permission.READ_CONTACTS, 2);
             }
-
-            cursor.close();
+        } else {
+            permission.requestPermission(Manifest.permission.WRITE_CONTACTS, 1);
         }
 
         return contactList;
+    }
+
+    public boolean deleteContact(Contact contact) {
+        ContentResolver contentResolver = activity.getContentResolver();
+
+        // Create the contact URI
+        Uri contactUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, getContactId("4saves" + contact.getPhone(), ""+contact.getPhone()));
+
+        // Delete the contact
+        int rowsDeleted = contentResolver.delete(contactUri, null, null);
+
+        if (rowsDeleted > 0) {
+            // Contact deleted successfully
+            Logger.d("Contact deleted");
+            return true;
+        } else {
+            // Failed to delete contact
+            Logger.d("Failed to delete contact");
+            return false;
+        }
+    }
+
+    @SuppressLint("Range")
+    public String getContactId(String displayName, String phoneNumber) {
+        Logger.d(displayName, phoneNumber);
+
+        String contactId = null;
+
+        // Query the ContactsContract Data table
+        Cursor cursor = activity.getContentResolver().query(
+                ContactsContract.Data.CONTENT_URI,
+                new String[]{ContactsContract.Data.CONTACT_ID},
+                ContactsContract.Data.DISPLAY_NAME + " = ? AND " +
+                        ContactsContract.Data.MIMETYPE + " = ? AND " +
+                        ContactsContract.CommonDataKinds.Phone.NUMBER + " = ?",
+                new String[]{displayName, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE, phoneNumber},
+                null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+            }
+            cursor.close();
+        }
+
+        return contactId;
     }
 }
