@@ -11,16 +11,18 @@ import androidx.lifecycle.ViewModelProvider;
 import status.four.saves.boost.guaranteed.databinding.FragmentSavedBinding;
 
 public class SavedFragment extends Fragment {
+    SavedViewModel savedViewModel;
 
     private FragmentSavedBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SavedViewModel savedViewModel =
-                new ViewModelProvider(this).get(SavedViewModel.class);
+        savedViewModel = new ViewModelProvider(this, new SavedViewModelFactory(getActivity())).get(SavedViewModel.class);
 
         binding = FragmentSavedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        savedViewModel.fetchContacts();
 
         return root;
     }
