@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.presentation.dash.ui.notifications;
+package status.four.saves.boost.guaranteed.presentation.dash.ui.Saved;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
