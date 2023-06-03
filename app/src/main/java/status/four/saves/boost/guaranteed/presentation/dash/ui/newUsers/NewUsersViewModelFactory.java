@@ -16,8 +16,8 @@ public class NewUsersViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(DashboardViewModel.class)) {
-            return (T) new DashboardViewModel(activity.getApplication(), activity);
+        if (modelClass.isAssignableFrom(NewUserViewModel.class)) {
+            return (T) new NewUserViewModel(activity.getApplication(), activity);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

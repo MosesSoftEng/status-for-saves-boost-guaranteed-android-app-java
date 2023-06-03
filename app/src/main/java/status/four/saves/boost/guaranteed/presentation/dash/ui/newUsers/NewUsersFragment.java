@@ -23,7 +23,7 @@ import status.four.saves.boost.guaranteed.shared.Logger;
  * Fragment class for displaying the dashboard screen.
  */
 public class NewUsersFragment extends Fragment {
-    private DashboardViewModel dashboardViewModel;
+    private NewUserViewModel newUserViewModel;
     private FragmentDashboardBinding binding;
     private SwipeRefreshLayout newUsersSwipeRefreshLayout;
     private RecyclerView newUserRecyclerView;
@@ -39,7 +39,7 @@ public class NewUsersFragment extends Fragment {
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel = new ViewModelProvider(this, new NewUsersViewModelFactory(getActivity())).get(DashboardViewModel.class);
+        newUserViewModel = new ViewModelProvider(this, new NewUsersViewModelFactory(getActivity())).get(NewUserViewModel.class);
 
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
@@ -48,13 +48,13 @@ public class NewUsersFragment extends Fragment {
         newUsersSwipeRefreshLayout = binding.newUsersSwipeRefreshLayout;
         newUsersSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
 
-        newUsersRecyclerViewAdapter = new NewUsersRecyclerViewAdapter(dashboardViewModel);
+        newUsersRecyclerViewAdapter = new NewUsersRecyclerViewAdapter(newUserViewModel);
         newUserRecyclerView = binding.newUsersRecyclerView;
         newUserRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         newUserRecyclerView.setAdapter(newUsersRecyclerViewAdapter);
         newUserRecyclerView.addOnScrollListener(recyclerViewOnScrollListener());
 
-        dashboardViewModel.getUsers().observe(getViewLifecycleOwner(), this::updateUserList);
+        newUserViewModel.getUsers().observe(getViewLifecycleOwner(), this::updateUserList);
 
         fetchUsers();
 
@@ -66,7 +66,7 @@ public class NewUsersFragment extends Fragment {
      */
     private void fetchUsers() {
         newUsersSwipeRefreshLayout.setRefreshing(true);
-        dashboardViewModel.fetchUsers();
+        newUserViewModel.fetchUsers();
     }
 
     /**
@@ -86,7 +86,7 @@ public class NewUsersFragment extends Fragment {
      * Refreshes the data by clearing the user list and fetching new users.
      */
     private void refreshData() {
-        dashboardViewModel.clearUsers();
+        newUserViewModel.clearUsers();
         fetchUsers();
     }
 
@@ -120,8 +120,8 @@ public class NewUsersFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if(dashboardViewModel.getSavedUsers().getValue() != null) {
-            dashboardViewModel.removeUserIfContactExists(dashboardViewModel.getSavedUsers().getValue());
+        if(newUserViewModel.getSavedUsers().getValue() != null) {
+            newUserViewModel.removeUserIfContactExists(newUserViewModel.getSavedUsers().getValue());
         }
     }
 }

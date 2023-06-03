@@ -22,7 +22,7 @@ import status.four.saves.boost.guaranteed.data.storage.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
-public class DashboardViewModel extends AndroidViewModel {
+public class NewUserViewModel extends AndroidViewModel {
     UsersApi usersApi;
     ContactsApi contactsApi;
     ContactsRepo contactsRepo;
@@ -32,7 +32,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private final MutableLiveData<User> savedUser;
     private long lastIndex = 0;
 
-    public DashboardViewModel(@NonNull Application application, Activity activity) {
+    public NewUserViewModel(@NonNull Application application, Activity activity) {
         super(application);
         users = new MutableLiveData<>();
         savedUser = new MutableLiveData<>();

@@ -17,16 +17,16 @@ import status.four.saves.boost.guaranteed.domain.user.User;
 
 public class NewUsersRecyclerViewAdapter extends RecyclerView.Adapter<NewUsersRecyclerViewAdapter.ViewHolder> {
     private ArrayList<User> newUsers = new ArrayList<>();
-    private DashboardViewModel dashboardViewModel;
+    private NewUserViewModel newUserViewModel;
 
 
-    public NewUsersRecyclerViewAdapter(DashboardViewModel dashboardViewModel) {
-        this.dashboardViewModel = dashboardViewModel;
+    public NewUsersRecyclerViewAdapter(NewUserViewModel newUserViewModel) {
+        this.newUserViewModel = newUserViewModel;
     }
 
     public void setData(ArrayList<User> newUsers) {
         this.newUsers = newUsers;
-        this.dashboardViewModel = dashboardViewModel;
+        this.newUserViewModel = newUserViewModel;
     }
 
     @NonNull
@@ -67,7 +67,7 @@ public class NewUsersRecyclerViewAdapter extends RecyclerView.Adapter<NewUsersRe
         @Override
         public void onClick(View view) {
             if(view == savePhoneButton) {
-                dashboardViewModel.saveContact(user);
+                newUserViewModel.saveContact(user);
             }
         }
     }
