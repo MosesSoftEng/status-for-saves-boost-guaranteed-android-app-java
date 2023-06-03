@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import status.four.saves.boost.guaranteed.databinding.FragmentNotificationsBinding;
 
-public class NotificationsFragment extends Fragment {
+public class SavedFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
 
