@@ -42,9 +42,14 @@ public class SavedFragment extends Fragment {
 
         savedViewModel.getContacts().observe(getViewLifecycleOwner(), this::updateContactsList);
 
-        savedViewModel.fetchContacts();
+        fetchContacts();
+
 
         return root;
+    }
+
+    private void fetchContacts() {
+        savedViewModel.fetchContacts();
     }
 
     private void updateContactsList(ArrayList<Contact> contacts) {
