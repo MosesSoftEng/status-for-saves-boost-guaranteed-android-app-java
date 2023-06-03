@@ -7,17 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 
 import status.four.saves.boost.guaranteed.databinding.FragmentHomeBinding;
-import status.four.saves.boost.guaranteed.domain.user.User;
-import status.four.saves.boost.guaranteed.presentation.dash.ui.dashboard.NewUsersRecyclerViewAdapter;
-import status.four.saves.boost.guaranteed.shared.Logger;
 
 public class SaveBackFragment extends Fragment {
 

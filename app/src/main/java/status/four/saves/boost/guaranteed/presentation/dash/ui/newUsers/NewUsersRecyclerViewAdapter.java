@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.presentation.dash.ui.dashboard;
+package status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.User;
-import status.four.saves.boost.guaranteed.shared.Logger;
 
 
 public class NewUsersRecyclerViewAdapter extends RecyclerView.Adapter<NewUsersRecyclerViewAdapter.ViewHolder> {

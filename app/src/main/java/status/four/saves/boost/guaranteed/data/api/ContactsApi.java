@@ -5,16 +5,8 @@ import static status.four.saves.boost.guaranteed.shared.Config.API_URL;
 import android.content.Context;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.shared.VolleyHelper;
 
