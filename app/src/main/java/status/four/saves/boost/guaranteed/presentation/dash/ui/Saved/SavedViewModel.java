@@ -40,3 +40,17 @@ public class SavedViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Removes the given contact from the contact list.
+     *
+     * @param contact The contact to be removed from the list.
+     */
+    public void removeContact(Contact contact) {
+        ArrayList<Contact> contactList = contacts.getValue();
+
+        if (contactList != null) {
+            contactList.remove(contact);
+            contacts.setValue(contactList);
+        }
+    }
+}
