@@ -20,7 +20,7 @@ import status.four.saves.boost.guaranteed.shared.VolleyHelper;
 
 public class ContactsApi {
     private static ContactsApi instance;
-    private static VolleyHelper volleyHelper;
+    private VolleyHelper volleyHelper;
 
     public ContactsApi(Context context) {
         volleyHelper = VolleyHelper.getInstance(context);
