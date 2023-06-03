@@ -1,12 +1,17 @@
 package status.four.saves.boost.guaranteed.data.storage;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import status.four.saves.boost.guaranteed.domain.contact.Contact;
 import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.shared.Permission;
@@ -88,5 +93,46 @@ public class ContactsRepo {
             Logger.e("Error checking contact existence: " + e.getMessage());
             return false;
         }
+    }
+
+    /**
+     * Retrieves the saved contacts from the phone contacts.
+     *
+     * @return The list of saved contacts.
+     */
+    public ArrayList<Contact> getContacts() {
+        ArrayList<Contact> contactList = new ArrayList<>();
+
+        String[] projection = {
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                ContactsContract.CommonDataKinds.Phone.NUMBER
+        };
+
+        String selection = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " LIKE ?";
+        String[] selectionArgs = {"4saves%"};
+
+        Cursor cursor = activity.getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                projection,
+                selection,
+                selectionArgs,
+                null
+        );
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                @SuppressLint("Range") String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                Logger.d(name, phoneNumber);
+
+                Contact contact = new Contact(name.replace("4saves", ""), phoneNumber);
+                contactList.add(contact);
+            }
+
+            cursor.close();
+        }
+
+        return contactList;
     }
 }
