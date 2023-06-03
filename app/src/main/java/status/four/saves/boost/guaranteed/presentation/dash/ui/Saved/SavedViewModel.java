@@ -4,16 +4,18 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SavedViewModel extends ViewModel {
+import java.util.ArrayList;
 
-    private final MutableLiveData<String> mText;
+import status.four.saves.boost.guaranteed.domain.contact.Contact;
+
+public class SavedViewModel extends ViewModel {
+    private final MutableLiveData<ArrayList<Contact>> contacts;
 
     public SavedViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is Saved fragment");
+        contacts = new MutableLiveData<>();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<ArrayList<Contact>> getContacts() {
+        return contacts;
     }
 }
