@@ -18,8 +18,8 @@ public class SavedViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(NewUserViewModel.class)) {
-            return (T) new NewUserViewModel(activity.getApplication(), activity);
+        if (modelClass.isAssignableFrom(SavedViewModel.class)) {
+            return (T) new SavedViewModel(activity.getApplication(), activity);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }
