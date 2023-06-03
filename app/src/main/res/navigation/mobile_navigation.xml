@@ -15,7 +15,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers.NewUsersFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_new_user" />
 
     <fragment
         android:id="@+id/navigation_notifications"

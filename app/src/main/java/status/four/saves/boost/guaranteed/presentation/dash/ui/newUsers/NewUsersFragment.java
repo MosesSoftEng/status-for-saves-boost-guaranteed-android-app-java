@@ -14,7 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
-import status.four.saves.boost.guaranteed.databinding.FragmentDashboardBinding;
+import status.four.saves.boost.guaranteed.databinding.FragmentNewUserBinding;
 import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
@@ -24,7 +24,7 @@ import status.four.saves.boost.guaranteed.shared.Logger;
  */
 public class NewUsersFragment extends Fragment {
     private NewUserViewModel newUserViewModel;
-    private FragmentDashboardBinding binding;
+    private FragmentNewUserBinding binding;
     private SwipeRefreshLayout newUsersSwipeRefreshLayout;
     private RecyclerView newUserRecyclerView;
     private NewUsersRecyclerViewAdapter newUsersRecyclerViewAdapter;
@@ -42,7 +42,7 @@ public class NewUsersFragment extends Fragment {
         newUserViewModel = new ViewModelProvider(this, new NewUsersViewModelFactory(getActivity())).get(NewUserViewModel.class);
 
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentNewUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         newUsersSwipeRefreshLayout = binding.newUsersSwipeRefreshLayout;
