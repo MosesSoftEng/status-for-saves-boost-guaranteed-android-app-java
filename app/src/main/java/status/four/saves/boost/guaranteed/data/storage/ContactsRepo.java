@@ -148,23 +148,17 @@ public class ContactsRepo {
     }
 
     public boolean deleteContact(Contact contact) {
-        ContentResolver contentResolver = activity.getContentResolver();
-
-        // Create the contact URI
         Uri contactUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, getContactId("4saves" + contact.getPhone(), ""+contact.getPhone()));
 
-        // Delete the contact
-        int rowsDeleted = contentResolver.delete(contactUri, null, null);
-
-        if (rowsDeleted > 0) {
-            // Contact deleted successfully
-            Logger.d("Contact deleted");
+        if (contactUri == null) {
+            Logger.d("Contact ID is null");
             return true;
-        } else {
-            // Failed to delete contact
-            Logger.d("Failed to delete contact");
-            return false;
         }
+
+        int rowsDeleted = activity.getContentResolver().delete(contactUri, null, null);
+        boolean isDeleted = rowsDeleted > 0;
+
+        return isDeleted;
     }
 
     @SuppressLint("Range")
