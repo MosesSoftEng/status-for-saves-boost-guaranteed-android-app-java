@@ -57,6 +57,33 @@ public class ContactsApi {
         }
     }
 
+    public void deleteContact(String loggedInUserPhoneNumber, String userPhoneNumber, Callback callback) {
+        Logger.d("loggedInUserPhoneNumber: ", loggedInUserPhoneNumber, " userPhoneNumber:", userPhoneNumber);
+
+        try {
+            JSONObject requestBody = new JSONObject();
+            requestBody.put("user", loggedInUserPhoneNumber);
+            requestBody.put("phone", userPhoneNumber);
+
+            volleyHelper.makeRequest(
+                    API_URL + "/contacts/delete",
+                    Request.Method.POST,
+                    null,
+                    requestBody,
+                    response -> {
+                        Logger.d("Response: ", response.toString());
+                        callback.onSuccess(response.toString());
+                    },
+                    error -> {
+                        Logger.d("Error: ", error.getMessage());
+                        callback.onError(error);
+                    });
+        } catch (JSONException error) {
+            error.printStackTrace();
+            callback.onError(error);
+        }
+    }
+
     /**
      * The callback interface for handling login results.
      */
