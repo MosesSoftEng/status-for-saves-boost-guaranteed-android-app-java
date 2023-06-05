@@ -44,9 +44,20 @@ public class SavedViewModel extends AndroidViewModel {
 
     public void deleteContact(Contact contact) {
         if(contactsRepo.deleteContact(contact)){
-            removeContactFromContactsList(contact);
 
-            // TODO: delete contact online
+            String loggedInUserPhoneNumber = sharedPreferencesHelper.getString(SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER, "");
+
+            contactsApi.deleteContact(loggedInUserPhoneNumber, contact.getPhone(), new ContactsApi.Callback() {
+                @Override
+                public void onSuccess(String message) {
+                    removeContactFromContactsList(contact);
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    // TODO: Display retry notification.
+                }
+            });
         }
     }
 
