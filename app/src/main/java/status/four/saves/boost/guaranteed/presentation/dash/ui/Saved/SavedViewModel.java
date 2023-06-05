@@ -1,5 +1,7 @@
 package status.four.saves.boost.guaranteed.presentation.dash.ui.Saved;
 
+import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER;
+
 import android.app.Activity;
 import android.app.Application;
 
@@ -12,11 +14,13 @@ import java.util.ArrayList;
 
 import status.four.saves.boost.guaranteed.data.api.ContactsApi;
 import status.four.saves.boost.guaranteed.data.storage.ContactsRepo;
+import status.four.saves.boost.guaranteed.data.storage.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.domain.contact.Contact;
 
 public class SavedViewModel extends AndroidViewModel {
-    ContactsRepo contactsRepo;
-    ContactsApi contactsApi;
+    private ContactsRepo contactsRepo;
+    private ContactsApi contactsApi;
+    private SharedPreferencesHelper sharedPreferencesHelper;
 
     public MutableLiveData<ArrayList<Contact>> contactList;
 
@@ -25,6 +29,7 @@ public class SavedViewModel extends AndroidViewModel {
 
         contactsRepo = ContactsRepo.getInstance(activity);
         contactsApi = ContactsApi.getInstance(application.getApplicationContext());
+        sharedPreferencesHelper = SharedPreferencesHelper.getInstance(application.getApplicationContext());
 
         contactList = new MutableLiveData<>();
     }
