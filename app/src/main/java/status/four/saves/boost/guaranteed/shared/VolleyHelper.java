@@ -77,4 +77,6 @@ public class VolleyHelper {
         JsonObjectRequest request = new JsonObjectRequest(method, url, requestBody, successListener, errorListener);
         requestQueue.add(request);
     }
+
+    // TODO: Create makeRequest for specific types.
 }
