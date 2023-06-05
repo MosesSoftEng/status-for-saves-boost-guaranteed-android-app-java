@@ -42,7 +42,7 @@ public class SavedFragment extends Fragment {
         savedRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         savedRecyclerView.setAdapter(savedRecyclerViewAdapter);
 
-        savedViewModel.getContacts().observe(getViewLifecycleOwner(), this::updateContactsList);
+        savedViewModel.getContactList().observe(getViewLifecycleOwner(), this::updateContactsList);
 
         fetchContacts();
 
@@ -62,7 +62,7 @@ public class SavedFragment extends Fragment {
     }
 
     private void refreshData() {
-        savedViewModel.contacts.setValue(new ArrayList<>());
+        savedViewModel.contactList.setValue(new ArrayList<>());
         fetchContacts();
     }
 
