@@ -3,15 +3,14 @@ package status.four.saves.boost.guaranteed.data.storage;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import status.four.saves.boost.guaranteed.domain.contact.Contact;
 import status.four.saves.boost.guaranteed.domain.user.User;
@@ -36,7 +35,7 @@ public class ContactsRepo {
         return instance;
     }
 
-    public void saveContact(User user) {
+    public void saveContactManual(User user) {
         if(permission.isPermissionGranted(Manifest.permission.WRITE_CONTACTS)) {
             if(permission.isPermissionGranted(Manifest.permission.READ_CONTACTS)) {
                 Logger.d("Save contact");
@@ -185,5 +184,58 @@ public class ContactsRepo {
         }
 
         return contactId;
+    }
+
+    public void saveContact(User user, Callback callback) {
+        ContentResolver contentResolver = activity.getContentResolver();
+
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
+
+        // Add a new raw contact
+        operations.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                .build());
+
+        // Add the contact name
+        operations.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, "4saves" + user.getPhone())
+                .build());
+
+        // Add the contact phone number
+        operations.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, user.getPhone())
+                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+                .build());
+
+        try {
+            contentResolver.applyBatch(ContactsContract.AUTHORITY, operations);
+            callback.onSuccess("Contact created");
+        } catch (Exception e) {
+            callback.onError(e);
+        }
+    }
+
+    /**
+     * The callback interface for handling login results.
+     */
+    public interface Callback {
+        /**
+         * Called when the login operation is successful.
+         *
+         * @param message The success message.
+         */
+        void onSuccess(String message);
+
+        /**
+         * Called when an error occurs during the login operation.
+         *
+         * @param throwable The error that occurred.
+         */
+        void onError(Throwable throwable);
     }
 }
