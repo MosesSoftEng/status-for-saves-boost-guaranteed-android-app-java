@@ -21,6 +21,11 @@ public class StartActivity extends AppCompatActivity {
 
         // TODO: Check if terms and private policy are accepted.
         usersService = new UsersService(getApplicationContext());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         if(usersService.isUserLoggedIn())
             startActivity(new Intent(StartActivity.this, DashActivity.class));
