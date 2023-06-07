@@ -1,5 +1,6 @@
 package status.four.saves.boost.guaranteed.presentation.dash;
 
+import android.Manifest;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -12,10 +13,11 @@ import androidx.navigation.ui.NavigationUI;
 
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.databinding.ActivityDashBinding;
+import status.four.saves.boost.guaranteed.shared.Permission;
 
 public class DashActivity extends AppCompatActivity {
-
     private ActivityDashBinding binding;
+    private Permission permission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +35,10 @@ public class DashActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_dash);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        permission = Permission.getInstance(this);
+
+        permission.requestPermission(Manifest.permission.WRITE_CONTACTS, 1);
+        permission.requestPermission(Manifest.permission.READ_CONTACTS, 2);
     }
 }
