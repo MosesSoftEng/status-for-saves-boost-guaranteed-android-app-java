@@ -11,6 +11,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
 public class NewUserViewModel extends AndroidViewModel {
+    Activity activity;
     UsersApi usersApi;
     ContactsApi contactsApi;
     ContactsRepo contactsRepo;
@@ -34,6 +37,8 @@ public class NewUserViewModel extends AndroidViewModel {
 
     public NewUserViewModel(@NonNull Application application, Activity activity) {
         super(application);
+        this.activity = activity;
+
         users = new MutableLiveData<>();
         savedUser = new MutableLiveData<>();
 
@@ -93,7 +98,20 @@ public class NewUserViewModel extends AndroidViewModel {
 
     public void saveContact(User user) {
         savedUser.setValue(user);
-        contactsRepo.saveContactManual(user);
+
+        contactsRepo.saveContact(user, new ContactsRepo.Callback() {
+            @Override
+            public void onSuccess(String message) {
+                removeUser(user);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Snackbar.make(activity.getWindow().getDecorView().getRootView(), "Saving contact failed.", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Retry", v -> saveContact(user))
+                        .show();
+            }
+        });
     }
 
     /**
