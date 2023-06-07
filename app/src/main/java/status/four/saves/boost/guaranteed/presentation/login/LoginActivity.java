@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onSuccess(String message) {
                     Logger.d("LoginActivity onClick usersService.loginUser, message:", message);
 
-
+                    startActivity(new Intent(LoginActivity.this, StartActivity.class));
                 }
 
                 @Override
