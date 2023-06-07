@@ -13,21 +13,20 @@ import java.util.ArrayList;
 
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.User;
-import status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers.NewUserViewModel;
 
 
 public class SaveBackRecyclerViewAdapter extends RecyclerView.Adapter<SaveBackRecyclerViewAdapter.ViewHolder> {
     private ArrayList<User> newUsers = new ArrayList<>();
-    private NewUserViewModel newUserViewModel;
+    private SaveBackViewModel saveBackViewModel;
 
 
-    public SaveBackRecyclerViewAdapter(NewUserViewModel newUserViewModel) {
-        this.newUserViewModel = newUserViewModel;
+    public SaveBackRecyclerViewAdapter(SaveBackViewModel saveBackViewModel) {
+        this.saveBackViewModel = saveBackViewModel;
     }
 
     public void setData(ArrayList<User> newUsers) {
         this.newUsers = newUsers;
-        this.newUserViewModel = newUserViewModel;
+        this.saveBackViewModel = saveBackViewModel;
     }
 
     @NonNull
@@ -68,7 +67,7 @@ public class SaveBackRecyclerViewAdapter extends RecyclerView.Adapter<SaveBackRe
         @Override
         public void onClick(View view) {
             if(view == savePhoneButton) {
-                newUserViewModel.saveContact(user);
+                saveBackViewModel.saveContact(user);
             }
         }
     }
