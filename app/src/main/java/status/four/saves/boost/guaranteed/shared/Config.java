@@ -12,5 +12,5 @@ public class Config {
     public static final String SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER = "SHARED_PREFS_kEY_USER_WHATSAPP_MOBILE_NUMBER";
 
     // Pagination
-    public static int paginationCount = 20;
+    public static int PAGINATION_NUMBER = 20;
 }
