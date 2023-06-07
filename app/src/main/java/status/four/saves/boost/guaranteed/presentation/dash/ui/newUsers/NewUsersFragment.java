@@ -116,13 +116,4 @@ public class NewUsersFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if(newUserViewModel.getSavedUsers().getValue() != null) {
-            newUserViewModel.removeUserIfContactExists(newUserViewModel.getSavedUsers().getValue());
-        }
-    }
 }
