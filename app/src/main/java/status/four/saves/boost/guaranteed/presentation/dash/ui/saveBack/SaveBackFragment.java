@@ -8,21 +8,87 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 
 import status.four.saves.boost.guaranteed.databinding.FragmentHomeBinding;
+import status.four.saves.boost.guaranteed.domain.user.User;
+import status.four.saves.boost.guaranteed.presentation.dash.ui.Saved.SavedRecyclerViewAdapter;
+import status.four.saves.boost.guaranteed.presentation.dash.ui.Saved.SavedViewModelFactory;
+import status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers.NewUserViewModel;
+import status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers.NewUsersViewModelFactory;
 
 public class SaveBackFragment extends Fragment {
+    private SaveBackViewModel saveBackViewModel;
 
     private FragmentHomeBinding binding;
 
+    private SwipeRefreshLayout savedBackSwipeRefreshLayout;
+    private RecyclerView savedBackRecyclerView;
+    private SaveBackRecyclerViewAdapter savedBackRecyclerViewAdapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SaveBackViewModel saveBackViewModel =
-                new ViewModelProvider(this).get(SaveBackViewModel.class);
+
+        saveBackViewModel = new ViewModelProvider(this, new SaveBackViewModelFactory(getActivity())).get(SaveBackViewModel.class);
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        savedBackSwipeRefreshLayout = binding.savedBackSwipeRefreshLayout;
+        savedBackSwipeRefreshLayout.setOnRefreshListener(this::refreshData);
+        savedBackRecyclerViewAdapter = new SaveBackRecyclerViewAdapter(saveBackViewModel);
+        savedBackRecyclerView = binding.savedBackRecyclerView;
+        savedBackRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        savedBackRecyclerView.setAdapter(savedBackRecyclerViewAdapter);
+
+        saveBackViewModel.getUsersSavedMeList().observe(getViewLifecycleOwner(), this::updateUsersSavedMeList);
+
+        fetchUsersSavedMe();
+
         return root;
+    }
+
+    private void updateUsersSavedMeList(ArrayList<User> usersSavedMeList) {
+        savedBackRecyclerViewAdapter.setData(usersSavedMeList);
+        savedBackRecyclerViewAdapter.notifyDataSetChanged();
+
+        savedBackSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    /*
+     * Methods.
+     */
+    private void fetchUsersSavedMe() {
+        savedBackSwipeRefreshLayout.setRefreshing(true);
+        saveBackViewModel.fetchUsersSavedMe(new SaveBackViewModel.Callback() {
+            @Override
+            public void onSuccess(String message) {
+
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Snackbar.make(binding.getRoot(), "Connection failed.", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Retry", v -> fetchUsersSavedMe())
+                        .show();
+
+                savedBackSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    /*
+     * Events and Handlers.
+     */
+    private void refreshData() {
+        saveBackViewModel.usersSavedMeList.setValue(new ArrayList<>());
+        fetchUsersSavedMe();
     }
 
     @Override
