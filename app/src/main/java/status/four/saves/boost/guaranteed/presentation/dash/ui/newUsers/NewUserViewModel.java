@@ -1,7 +1,7 @@
 package status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers;
 
 import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER;
-import static status.four.saves.boost.guaranteed.shared.Config.paginationCount;
+import static status.four.saves.boost.guaranteed.shared.Config.PAGINATION_NUMBER;
 
 import android.app.Activity;
 import android.app.Application;
@@ -52,7 +52,7 @@ public class NewUserViewModel extends AndroidViewModel {
     }
 
     public void fetchUsers() {
-        usersApi.getUsers(lastIndex, paginationCount, new UsersApi.Callback() {
+        usersApi.getUsers(lastIndex, PAGINATION_NUMBER, new UsersApi.Callback() {
             @Override
             public void onSuccess(String message) {
                 Logger.d("DashboardViewModel fetchNewUsers usersApi.getUsers, message:", message);
@@ -92,10 +92,8 @@ public class NewUserViewModel extends AndroidViewModel {
     }
 
     public void saveContact(User user) {
-        Logger.d("Add to contact: ", user.toString());
-
         savedUser.setValue(user);
-        contactsRepo.saveContact(user);
+        contactsRepo.saveContactManual(user);
     }
 
     /**
