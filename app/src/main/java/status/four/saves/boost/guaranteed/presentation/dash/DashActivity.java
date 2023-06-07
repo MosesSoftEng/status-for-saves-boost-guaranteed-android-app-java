@@ -15,10 +15,15 @@ import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.databinding.ActivityDashBinding;
 import status.four.saves.boost.guaranteed.shared.Permission;
 
+import static status.four.saves.boost.guaranteed.shared.Config.IS_EXITING;
+
 public class DashActivity extends AppCompatActivity {
     private ActivityDashBinding binding;
     private Permission permission;
 
+    /*
+     * Events and Handlers.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,5 +45,12 @@ public class DashActivity extends AppCompatActivity {
 
         permission.requestPermission(Manifest.permission.WRITE_CONTACTS, 1);
         permission.requestPermission(Manifest.permission.READ_CONTACTS, 2);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        IS_EXITING = true;
     }
 }

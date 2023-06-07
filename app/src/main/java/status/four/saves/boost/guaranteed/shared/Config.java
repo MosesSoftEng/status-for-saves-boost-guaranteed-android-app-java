@@ -13,4 +13,7 @@ public class Config {
 
     // Pagination
     public static int PAGINATION_NUMBER = 20;
+
+    // Activity.
+    public static boolean IS_EXITING = false;
 }

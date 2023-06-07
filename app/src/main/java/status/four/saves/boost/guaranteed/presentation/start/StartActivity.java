@@ -1,5 +1,7 @@
 package status.four.saves.boost.guaranteed.presentation.start;
 
+import static status.four.saves.boost.guaranteed.shared.Config.IS_EXITING;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,7 +11,6 @@ import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.UsersService;
 import status.four.saves.boost.guaranteed.presentation.dash.DashActivity;
 import status.four.saves.boost.guaranteed.presentation.login.LoginActivity;
-import status.four.saves.boost.guaranteed.shared.Logger;
 
 public class StartActivity extends AppCompatActivity {
     UsersService usersService;
@@ -26,6 +27,10 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if(IS_EXITING) {
+            this.finish();
+        }
 
         if(usersService.isUserLoggedIn())
             startActivity(new Intent(StartActivity.this, DashActivity.class));
