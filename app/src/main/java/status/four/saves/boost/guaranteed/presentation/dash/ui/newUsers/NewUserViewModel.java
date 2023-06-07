@@ -30,9 +30,7 @@ public class NewUserViewModel extends AndroidViewModel {
     ContactsApi contactsApi;
     ContactsRepo contactsRepo;
 
-    private SharedPreferencesHelper sharedPreferencesHelper;
     private final MutableLiveData<ArrayList<User>> users;
-    private final MutableLiveData<User> savedUser;
     private long lastIndex = 0;
 
     public NewUserViewModel(@NonNull Application application, Activity activity) {
@@ -40,20 +38,14 @@ public class NewUserViewModel extends AndroidViewModel {
         this.activity = activity;
 
         users = new MutableLiveData<>();
-        savedUser = new MutableLiveData<>();
 
         usersApi = UsersApi.getInstance(application.getApplicationContext());
         contactsApi = ContactsApi.getInstance(application.getApplicationContext());
         contactsRepo = ContactsRepo.getInstance(activity);
-        sharedPreferencesHelper = SharedPreferencesHelper.getInstance(application.getApplicationContext());
     }
 
     public LiveData<ArrayList<User>> getUsers() {
         return users;
-    }
-
-    public LiveData<User> getSavedUsers() {
-        return savedUser;
     }
 
     public void fetchUsers() {
@@ -96,52 +88,6 @@ public class NewUserViewModel extends AndroidViewModel {
         lastIndex = 0;
     }
 
-    public void saveContact(User user) {
-        savedUser.setValue(user);
-
-        contactsRepo.saveContact(user, new ContactsRepo.Callback() {
-            @Override
-            public void onSuccess(String message) {
-                removeUser(user);
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                Snackbar.make(activity.getWindow().getDecorView().getRootView(), "Saving contact failed.", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Retry", v -> saveContact(user))
-                        .show();
-            }
-        });
-    }
-
-    /**
-     * Removes the given user from the user list if a corresponding contact exists.
-     * If the contact exists, the user will be removed from the list.
-     *
-     * @param user The user to be checked and removed if a contact exists.
-     */
-    public void removeUserIfContactExists(User user) {
-        String contactName = "4saves" + user.getPhone();
-        String phoneNumber = "" + user.getPhone();
-
-        if (contactsRepo.checkContactExists(contactName, phoneNumber)) {
-            String loggedInUserPhoneNumber = sharedPreferencesHelper.getString(SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER, "");
-
-            contactsApi.saveContact(loggedInUserPhoneNumber, user.getPhone(), new ContactsApi.Callback() {
-                @Override
-                public void onSuccess(String message) {
-                    Logger.d(message);
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-                    Logger.d(throwable.getMessage());
-                }
-            });
-
-            removeUser(user);
-        }
-    }
 
     /**
      * Removes the given user from the user list.
@@ -155,5 +101,24 @@ public class NewUserViewModel extends AndroidViewModel {
             userList.remove(user);
             users.setValue(userList);
         }
+    }
+
+    /*
+     * Contacts methods.
+     */
+    public void saveContact(User user) {
+        contactsRepo.saveContact(user, new ContactsRepo.Callback() {
+            @Override
+            public void onSuccess(String message) {
+                removeUser(user);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Snackbar.make(activity.getWindow().getDecorView().getRootView(), "Saving contact failed.", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Retry", v -> saveContact(user))
+                        .show();
+            }
+        });
     }
 }
