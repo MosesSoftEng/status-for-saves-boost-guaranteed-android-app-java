@@ -7,7 +7,7 @@
     tools:context=".presentation.dash.ui.Saved.SavedFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/savedSwipeRefreshLayout"
+        android:id="@+id/savedBackSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
