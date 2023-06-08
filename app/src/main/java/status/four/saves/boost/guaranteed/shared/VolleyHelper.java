@@ -68,6 +68,7 @@ public class VolleyHelper {
                             .append("=")
                             .append(URLEncoder.encode(String.valueOf(value), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
+                    // TODO: Handle error.
                     throw new RuntimeException(e);
                 }
             }
