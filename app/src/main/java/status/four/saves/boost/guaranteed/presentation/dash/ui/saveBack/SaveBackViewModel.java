@@ -17,6 +17,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import status.four.saves.boost.guaranteed.data.api.ContactsApi;
 import status.four.saves.boost.guaranteed.data.api.UsersApi;
 import status.four.saves.boost.guaranteed.data.storage.ContactsRepo;
 import status.four.saves.boost.guaranteed.data.storage.SharedPreferencesHelper;
@@ -27,6 +28,7 @@ import status.four.saves.boost.guaranteed.shared.Logger;
 public class SaveBackViewModel extends AndroidViewModel {
     Activity activity;
     private UsersApi usersApi;
+    private ContactsApi contactsApi;
     private ContactsRepo contactsRepo;
     private SharedPreferencesHelper sharedPreferencesHelper;
     public MutableLiveData<ArrayList<User>> usersSavedMeList;
@@ -38,6 +40,7 @@ public class SaveBackViewModel extends AndroidViewModel {
 
         this.activity = activity;
         usersApi = UsersApi.getInstance(application.getApplicationContext());
+        contactsApi = ContactsApi.getInstance(application.getApplicationContext());
         contactsRepo = ContactsRepo.getInstance(activity);
         sharedPreferencesHelper = SharedPreferencesHelper.getInstance(application.getApplicationContext());
 
@@ -54,7 +57,7 @@ public class SaveBackViewModel extends AndroidViewModel {
         usersApi.getUsersSavedMe(loggedInUserPhone, lastIndex, PAGINATION_NUMBER, new UsersApi.Callback() {
             @Override
             public void onSuccess(String message) {
-                Logger.i(message);
+                Logger.d(message);
 
                 try {
                     appendUsersToList(User.fromJsonArray(message), usersSavedMeList);
@@ -65,7 +68,7 @@ public class SaveBackViewModel extends AndroidViewModel {
 
             @Override
             public void onError(Throwable throwable) {
-                Logger.i(throwable.getMessage());
+                Logger.d(throwable.getMessage());
                 callback.onError(throwable);
             }
         });
@@ -90,7 +93,19 @@ public class SaveBackViewModel extends AndroidViewModel {
         contactsRepo.saveContact(user, new ContactsRepo.Callback() {
             @Override
             public void onSuccess(String message) {
-                removeUser(user);
+                String loggedInUserPhoneNumber = sharedPreferencesHelper.getString(SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER, "");
+
+                contactsApi.saveContact(loggedInUserPhoneNumber, user.getPhone(), new ContactsApi.Callback() {
+                    @Override
+                    public void onSuccess(String message) {
+                        removeUser(user);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+
+                    }
+                });
             }
 
             @Override
@@ -114,6 +129,11 @@ public class SaveBackViewModel extends AndroidViewModel {
             userList.remove(user);
             usersSavedMeList.setValue(userList);
         }
+    }
+
+    public void clearUsers() {
+        usersSavedMeList.setValue(new ArrayList<>());
+        lastIndex = 0;
     }
 
     /**
