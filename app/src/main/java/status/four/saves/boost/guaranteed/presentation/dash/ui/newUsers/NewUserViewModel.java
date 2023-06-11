@@ -111,7 +111,19 @@ public class NewUserViewModel extends AndroidViewModel {
         contactsRepo.saveContact(user, new ContactsRepo.Callback() {
             @Override
             public void onSuccess(String message) {
-                removeUser(user);
+                String loggedInUserPhoneNumber = sharedPreferencesHelper.getString(SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER, "");
+
+                contactsApi.saveContact(loggedInUserPhoneNumber, user.getPhone(), new ContactsApi.Callback() {
+                    @Override
+                    public void onSuccess(String message) {
+                        removeUser(user);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+
+                    }
+                });
             }
 
             @Override
