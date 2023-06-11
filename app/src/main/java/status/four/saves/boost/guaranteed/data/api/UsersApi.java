@@ -16,7 +16,7 @@ import java.util.Map;
 import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.shared.VolleyHelper;
 
-
+// TODO: Remove auth endpoints to AuthAPI
 public class UsersApi {
     private static UsersApi instance;
     private static VolleyHelper volleyHelper;
