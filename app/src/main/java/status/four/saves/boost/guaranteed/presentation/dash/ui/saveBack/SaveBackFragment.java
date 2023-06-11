@@ -87,7 +87,7 @@ public class SaveBackFragment extends Fragment {
      * Events and Handlers.
      */
     private void refreshData() {
-        saveBackViewModel.usersSavedMeList.setValue(new ArrayList<>());
+        saveBackViewModel.clearUsers();
         fetchUsersSavedMe();
     }
 
