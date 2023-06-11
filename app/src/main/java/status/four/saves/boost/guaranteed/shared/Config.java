@@ -9,7 +9,8 @@ public class Config {
 
     // Storage
     public static final String SHARED_PREFS_NAME = APP_NAME_ID;
-    public static final String SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER = "SHARED_PREFS_kEY_USER_WHATSAPP_MOBILE_NUMBER";
+    public static final String SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER = "SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER";
+    public static final String SHARED_PREFS_KEY_FCM_PUSH_NOTIFICATION_TOKEN = "SHARED_PREFS_KEY_FCM_PUSH_NOTIFICATION_TOKEN";
 
     // Pagination
     public static int PAGINATION_NUMBER = 20;
