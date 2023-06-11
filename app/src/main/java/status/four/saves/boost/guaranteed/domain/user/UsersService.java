@@ -26,7 +26,7 @@ public class UsersService {
      * @param context The application context.
      */
     public UsersService(Context context) {
-        sharedPreferencesHelper = new SharedPreferencesHelper(context);
+        sharedPreferencesHelper = SharedPreferencesHelper.getInstance(context);
         volleyHelper = VolleyHelper.getInstance(context);
     }
 
