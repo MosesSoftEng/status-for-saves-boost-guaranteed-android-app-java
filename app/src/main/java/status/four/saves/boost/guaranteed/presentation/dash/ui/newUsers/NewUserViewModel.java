@@ -43,6 +43,7 @@ public class NewUserViewModel extends AndroidViewModel {
         usersApi = UsersApi.getInstance(application.getApplicationContext());
         contactsApi = ContactsApi.getInstance(application.getApplicationContext());
         contactsRepo = ContactsRepo.getInstance(activity);
+        sharedPreferencesHelper = SharedPreferencesHelper.getInstance(application.getApplicationContext());
     }
 
     public LiveData<ArrayList<User>> getUsers() {
