@@ -25,10 +25,11 @@ import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
 public class NewUserViewModel extends AndroidViewModel {
-    Activity activity;
-    UsersApi usersApi;
-    ContactsApi contactsApi;
-    ContactsRepo contactsRepo;
+    private Activity activity;
+    private UsersApi usersApi;
+    private ContactsApi contactsApi;
+    private ContactsRepo contactsRepo;
+    private SharedPreferencesHelper sharedPreferencesHelper;
 
     private final MutableLiveData<ArrayList<User>> users;
     private long lastIndex = 0;
