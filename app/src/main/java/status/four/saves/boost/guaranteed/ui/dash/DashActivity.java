@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.presentation.dash;
+package status.four.saves.boost.guaranteed.ui.dash;
 
 import android.Manifest;
 import android.app.NotificationChannel;
@@ -27,7 +27,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.data.remote.FCMTokenApi;
-import status.four.saves.boost.guaranteed.data.storage.SharedPreferencesHelper;
+import status.four.saves.boost.guaranteed.data.local.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.databinding.ActivityDashBinding;
 import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.shared.Permission;

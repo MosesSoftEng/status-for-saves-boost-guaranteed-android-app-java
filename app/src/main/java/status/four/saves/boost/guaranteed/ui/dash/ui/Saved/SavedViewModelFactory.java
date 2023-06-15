@@ -1,12 +1,10 @@
-package status.four.saves.boost.guaranteed.presentation.dash.ui.Saved;
+package status.four.saves.boost.guaranteed.ui.dash.ui.Saved;
 
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-
-import status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers.NewUserViewModel;
 
 public class SavedViewModelFactory implements ViewModelProvider.Factory {
     private final Activity activity;

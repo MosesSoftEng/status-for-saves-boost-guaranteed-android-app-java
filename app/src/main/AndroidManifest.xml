@@ -19,7 +19,7 @@
         android:theme="@style/Theme.StatusForSavesBoostGuaranteed"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.dash.DashActivity"
+            android:name=".ui.dash.DashActivity"
             android:exported="false"
             android:label="@string/title_activity_dash" />
         <activity

@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.presentation.dash.ui.saveBack;
+package status.four.saves.boost.guaranteed.ui.dash.ui.saveBack;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,10 +18,6 @@ import java.util.ArrayList;
 
 import status.four.saves.boost.guaranteed.databinding.FragmentHomeBinding;
 import status.four.saves.boost.guaranteed.domain.user.User;
-import status.four.saves.boost.guaranteed.presentation.dash.ui.Saved.SavedRecyclerViewAdapter;
-import status.four.saves.boost.guaranteed.presentation.dash.ui.Saved.SavedViewModelFactory;
-import status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers.NewUserViewModel;
-import status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers.NewUsersViewModelFactory;
 
 public class SaveBackFragment extends Fragment {
     private SaveBackViewModel saveBackViewModel;

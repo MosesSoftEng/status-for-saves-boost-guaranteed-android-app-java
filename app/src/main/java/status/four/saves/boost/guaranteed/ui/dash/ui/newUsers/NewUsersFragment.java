@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers;
+package status.four.saves.boost.guaranteed.ui.dash.ui.newUsers;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

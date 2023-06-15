@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.UsersService;
-import status.four.saves.boost.guaranteed.presentation.dash.DashActivity;
+import status.four.saves.boost.guaranteed.ui.dash.DashActivity;
 import status.four.saves.boost.guaranteed.presentation.login.LoginActivity;
 
 public class StartActivity extends AppCompatActivity {

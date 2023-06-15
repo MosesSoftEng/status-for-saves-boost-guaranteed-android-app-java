@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.presentation.dash.ui.newUsers;
+package status.four.saves.boost.guaranteed.ui.dash.ui.newUsers;
 
 import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER;
 import static status.four.saves.boost.guaranteed.shared.Config.PAGINATION_NUMBER;
@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 import status.four.saves.boost.guaranteed.data.remote.ContactsApi;
 import status.four.saves.boost.guaranteed.data.remote.UsersApi;
-import status.four.saves.boost.guaranteed.data.storage.ContactsRepo;
-import status.four.saves.boost.guaranteed.data.storage.SharedPreferencesHelper;
+import status.four.saves.boost.guaranteed.data.local.ContactsRepo;
+import status.four.saves.boost.guaranteed.data.local.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 

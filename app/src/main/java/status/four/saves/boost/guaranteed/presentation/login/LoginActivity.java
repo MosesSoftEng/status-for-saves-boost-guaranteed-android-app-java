@@ -12,7 +12,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.UsersService;
-import status.four.saves.boost.guaranteed.presentation.dash.DashActivity;
 import status.four.saves.boost.guaranteed.presentation.start.StartActivity;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
