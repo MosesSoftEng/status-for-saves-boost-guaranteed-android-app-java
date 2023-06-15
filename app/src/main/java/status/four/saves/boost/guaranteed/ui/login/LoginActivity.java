@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.presentation.login;
+package status.four.saves.boost.guaranteed.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.UsersService;
-import status.four.saves.boost.guaranteed.presentation.start.StartActivity;
+import status.four.saves.boost.guaranteed.ui.start.StartActivity;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
