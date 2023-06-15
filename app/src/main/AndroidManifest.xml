@@ -23,6 +23,7 @@
             android:exported="false"
             android:label="@string/title_activity_dash" />
         <activity
+            android:name=".ui.dash.login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.start.StartActivity"

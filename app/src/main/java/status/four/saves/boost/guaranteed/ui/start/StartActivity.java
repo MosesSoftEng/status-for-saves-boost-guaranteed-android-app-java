@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.presentation.start;
+package status.four.saves.boost.guaranteed.ui.start;
 
 import static status.four.saves.boost.guaranteed.shared.Config.IS_EXITING;
 
@@ -10,7 +10,7 @@ import android.os.Bundle;
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.UsersService;
 import status.four.saves.boost.guaranteed.ui.dash.DashActivity;
-import status.four.saves.boost.guaranteed.presentation.login.LoginActivity;
+import status.four.saves.boost.guaranteed.ui.login.LoginActivity;
 
 public class StartActivity extends AppCompatActivity {
     UsersService usersService;
