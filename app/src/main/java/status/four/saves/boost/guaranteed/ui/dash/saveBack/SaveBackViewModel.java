@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.ui.dash.ui.saveBack;
+package status.four.saves.boost.guaranteed.ui.dash.saveBack;
 
 import static status.four.saves.boost.guaranteed.shared.Config.PAGINATION_NUMBER;
 import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER;

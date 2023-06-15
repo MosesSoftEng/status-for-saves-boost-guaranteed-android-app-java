@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.ui.dash.ui.newUsers;
+package status.four.saves.boost.guaranteed.ui.dash.saveBack;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,30 +15,30 @@ import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.User;
 
 
-public class NewUsersRecyclerViewAdapter extends RecyclerView.Adapter<NewUsersRecyclerViewAdapter.ViewHolder> {
+public class SaveBackRecyclerViewAdapter extends RecyclerView.Adapter<SaveBackRecyclerViewAdapter.ViewHolder> {
     private ArrayList<User> newUsers = new ArrayList<>();
-    private NewUserViewModel newUserViewModel;
+    private SaveBackViewModel saveBackViewModel;
 
 
-    public NewUsersRecyclerViewAdapter(NewUserViewModel newUserViewModel) {
-        this.newUserViewModel = newUserViewModel;
+    public SaveBackRecyclerViewAdapter(SaveBackViewModel saveBackViewModel) {
+        this.saveBackViewModel = saveBackViewModel;
     }
 
     public void setData(ArrayList<User> newUsers) {
         this.newUsers = newUsers;
-        this.newUserViewModel = newUserViewModel;
+        this.saveBackViewModel = saveBackViewModel;
     }
 
     @NonNull
     @Override
-    public NewUsersRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SaveBackRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.new_user_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewUsersRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SaveBackRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.populateViews(newUsers.get(position));
     }
 
@@ -67,7 +67,7 @@ public class NewUsersRecyclerViewAdapter extends RecyclerView.Adapter<NewUsersRe
         @Override
         public void onClick(View view) {
             if(view == savePhoneButton) {
-                newUserViewModel.saveContact(user);
+                saveBackViewModel.saveContact(user);
             }
         }
     }

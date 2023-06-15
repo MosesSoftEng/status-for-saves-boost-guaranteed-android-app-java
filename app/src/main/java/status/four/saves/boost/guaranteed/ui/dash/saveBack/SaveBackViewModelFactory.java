@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.ui.dash.ui.saveBack;
+package status.four.saves.boost.guaranteed.ui.dash.saveBack;
 
 import android.app.Activity;
 

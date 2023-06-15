@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.ui.dash.ui.newUsers;
+package status.four.saves.boost.guaranteed.ui.dash.newUsers;
 
 import android.app.Activity;
 
