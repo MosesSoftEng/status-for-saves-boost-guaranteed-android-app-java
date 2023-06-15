@@ -10,7 +10,6 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import status.four.saves.boost.guaranteed.R;
-import status.four.saves.boost.guaranteed.data.api.FCMTokenApi;
 import status.four.saves.boost.guaranteed.data.storage.SharedPreferencesHelper;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {

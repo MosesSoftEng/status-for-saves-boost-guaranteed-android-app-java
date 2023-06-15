@@ -12,7 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 
-import status.four.saves.boost.guaranteed.data.api.ContactsApi;
+import status.four.saves.boost.guaranteed.data.remote.ContactsApi;
 import status.four.saves.boost.guaranteed.data.storage.ContactsRepo;
 import status.four.saves.boost.guaranteed.data.storage.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.domain.contact.Contact;

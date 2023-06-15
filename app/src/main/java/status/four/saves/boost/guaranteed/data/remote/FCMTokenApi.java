@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.data.api;
+package status.four.saves.boost.guaranteed.data.remote;
 
 import static status.four.saves.boost.guaranteed.shared.Config.API_URL;
 
