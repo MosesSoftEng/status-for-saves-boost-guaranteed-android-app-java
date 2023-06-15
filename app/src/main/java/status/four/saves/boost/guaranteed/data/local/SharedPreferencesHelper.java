@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.data.storage;
+package status.four.saves.boost.guaranteed.data.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -12,7 +12,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import status.four.saves.boost.guaranteed.data.storage.SharedPreferencesHelper;
+import status.four.saves.boost.guaranteed.data.local.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.shared.VolleyHelper;
 
 public class UsersService {
