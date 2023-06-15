@@ -23,10 +23,10 @@
             android:exported="false"
             android:label="@string/title_activity_dash" />
         <activity
-            android:name=".ui.dash.login.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.start.StartActivity"
+            android:name=".ui.start.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
