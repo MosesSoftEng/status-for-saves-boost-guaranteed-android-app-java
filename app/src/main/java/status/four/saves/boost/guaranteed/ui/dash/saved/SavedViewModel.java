@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.ui.dash.Saved;
+package status.four.saves.boost.guaranteed.ui.dash.saved;
 
 import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER;
 

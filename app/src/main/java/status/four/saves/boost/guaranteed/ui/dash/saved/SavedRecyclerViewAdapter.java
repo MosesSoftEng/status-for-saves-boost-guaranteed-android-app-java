@@ -1,4 +1,4 @@
-package status.four.saves.boost.guaranteed.ui.dash.Saved;
+package status.four.saves.boost.guaranteed.ui.dash.saved;
 
 import android.view.LayoutInflater;
 import android.view.View;

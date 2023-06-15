@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="status.four.saves.boost.guaranteed.ui.dash.ui.saveBack.SaveBackFragment"
+        android:name="status.four.saves.boost.guaranteed.ui.dash.saveBack.SaveBackFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="status.four.saves.boost.guaranteed.ui.dash.ui.newUsers.NewUsersFragment"
+        android:name="status.four.saves.boost.guaranteed.ui.dash.newUsers.NewUsersFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_new_user" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="status.four.saves.boost.guaranteed.ui.dash.ui.Saved.SavedFragment"
+        android:name="status.four.saves.boost.guaranteed.ui.dash.saved.SavedFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_saved" />
 </navigation>
