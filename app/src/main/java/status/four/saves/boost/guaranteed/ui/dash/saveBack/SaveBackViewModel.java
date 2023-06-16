@@ -21,6 +21,7 @@ import status.four.saves.boost.guaranteed.data.remote.ContactsApi;
 import status.four.saves.boost.guaranteed.data.remote.UsersApi;
 import status.four.saves.boost.guaranteed.data.local.ContactsRepo;
 import status.four.saves.boost.guaranteed.data.local.SharedPreferencesHelper;
+import status.four.saves.boost.guaranteed.domain.contact.Contact;
 import status.four.saves.boost.guaranteed.domain.user.User;
 import status.four.saves.boost.guaranteed.shared.Logger;
 
@@ -34,6 +35,7 @@ public class SaveBackViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<User>> usersSavedMeList;
 
     private long lastIndex = 0;
+    private int addedCount = 0;
 
     public SaveBackViewModel(@NonNull Application application, Activity activity) {
         super(application);
@@ -60,7 +62,24 @@ public class SaveBackViewModel extends AndroidViewModel {
                 Logger.d(message);
 
                 try {
-                    appendUsersToList(User.fromJsonArray(message), usersSavedMeList);
+                    ArrayList<User> newUsersSavedMeList = User.fromJsonArray(message);
+
+                    // Get saved users.
+                    ArrayList<Contact> savedContacts = contactsRepo.getContacts();
+
+                    // Get users that are not saved.
+                    ArrayList<User> unsavedNewUsersSavedMeList = filterUsersBySavedContacts(newUsersSavedMeList, savedContacts);
+
+                    // Add unsaved users to list.
+                    appendUsersToList(unsavedNewUsersSavedMeList, usersSavedMeList);
+
+                    //TODO: Get more users if less than limit.
+                    if(
+                            newUsersSavedMeList.size() != 0 && // No more results.
+                            unsavedNewUsersSavedMeList.size() < PAGINATION_NUMBER // Unsaved contacts not enough.
+                    ) {
+
+                    }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -73,6 +92,32 @@ public class SaveBackViewModel extends AndroidViewModel {
             }
         });
     }
+
+    public ArrayList<User> filterUsersBySavedContacts(ArrayList<User> newUsersSavedMeList, ArrayList<Contact> savedContacts) {
+        // Create a new list to store the filtered User objects
+        ArrayList<User> filteredUsers = new ArrayList<>();
+
+        // Iterate over the newUsersSavedMeList
+        for (User user : newUsersSavedMeList) {
+            // Check if the phone number exists in the savedContacts
+            boolean phoneExists = false;
+            for (Contact contact : savedContacts) {
+                if (String.valueOf(user.getPhone()).equals(contact.getPhone())) {
+                    phoneExists = true;
+                    break;
+                }
+            }
+
+            // If the phone number does not exist in savedContacts, add it to the filteredUsers list
+            if (!phoneExists) {
+                filteredUsers.add(user);
+            }
+        }
+
+        // Return the filtered list of User objects
+        return filteredUsers;
+    }
+
 
     private void appendUsersToList(ArrayList<User> usersList, MutableLiveData<ArrayList<User>> newUsers) {
         ArrayList<User> currentList = newUsers.getValue();
