@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Menu;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -157,18 +158,26 @@ public class DashActivity extends AppCompatActivity {
     }
 
     private void requestNotificationPermission() {
+        Intent intent= new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Open app notification settings
-            Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
             intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
-            startActivity(intent);
         } else {
             // Open application settings
-            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             Uri uri = Uri.fromParts("package", getPackageName(), null);
             intent.setData(uri);
-            startActivity(intent);
         }
+        startActivity(intent);
+    }
+
+    /*
+     * Events
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_dash, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
