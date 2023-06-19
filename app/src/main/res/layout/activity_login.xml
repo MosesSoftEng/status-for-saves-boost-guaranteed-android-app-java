@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dash.login.LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -38,5 +38,12 @@
             android:layout_height="wrap_content"
             android:text="Save"
             app:icon="@drawable/baseline_save_24" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/grey" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
