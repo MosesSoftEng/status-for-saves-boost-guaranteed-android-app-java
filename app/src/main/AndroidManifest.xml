@@ -26,7 +26,8 @@
             android:label="@string/title_activity_dash" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.StatusForSavesBoostGuaranteed.NoActionBar"/>
         <activity
             android:name=".ui.start.StartActivity"
             android:exported="true">
