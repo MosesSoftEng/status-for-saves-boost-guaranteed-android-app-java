@@ -90,6 +90,13 @@ public class UsersService {
     }
 
     /**
+     * Logs out the user by removing the WhatsApp mobile number from SharedPreferences.
+     */
+    public void logoutUser() {
+        sharedPreferencesHelper.removeString(SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER);
+    }
+
+    /**
      * The callback interface for handling login results.
      */
     public interface Callback {
