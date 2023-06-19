@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +33,7 @@ import status.four.saves.boost.guaranteed.data.local.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.databinding.ActivityDashBinding;
 import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.shared.Permission;
+import status.four.saves.boost.guaranteed.ui.start.StartActivity;
 
 import static status.four.saves.boost.guaranteed.shared.Config.IS_EXITING;
 import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_FCM_PUSH_NOTIFICATION_TOKEN;
@@ -178,6 +180,25 @@ public class DashActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_dash, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menu_terms) {
+            // Handle Terms menu option click
+            // Perform the desired action, such as opening a Terms activity or fragment
+            return true;
+        } else if (itemId == R.id.menu_privacy_policy) {
+            // Handle Privacy Policy menu option click
+            // Perform the desired action, such as opening a Privacy Policy activity or fragment
+            return true;
+        } else if (itemId == R.id.menu_logout) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
