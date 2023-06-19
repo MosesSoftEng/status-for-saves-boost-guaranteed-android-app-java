@@ -4,8 +4,10 @@ public class Config {
     public static final String APP_NAME_ID = "status.four.saves.boost.guaranteed";
     public static boolean SHOW_LOGS = true;
 
-    // Network
+    // Links & Network
     public static final String API_URL = "https://ywu7goj8i4.execute-api.us-east-1.amazonaws.com/dev/v1";
+    public static final String PRIVATE_POLICY_LINK = "https://zawadizggo.blogspot.com/2023/06/status-for-saves-boost-guaranteed-private-policy.html";
+    public static final String TERMS_OF_USE_LINK = "https://zawadizggo.blogspot.com/2023/06/status-for-saves-boost-guaranteed-terms-of-use.html";
 
     // Storage
     public static final String SHARED_PREFS_NAME = APP_NAME_ID;
