@@ -149,12 +149,10 @@ public class DashActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.menu_terms) {
-            // Handle Terms menu option click
-            // Perform the desired action, such as opening a Terms activity or fragment
+            showWebPage(URL_TERMS_OF_USE, "Terms of use.");
             return true;
         } else if (itemId == R.id.menu_privacy_policy) {
-            // Handle Privacy Policy menu option click
-            // Perform the desired action, such as opening a Privacy Policy activity or fragment
+            showWebPage(URL_PRIVATE_POLICY, "Private policy.");
             return true;
         } else if (itemId == R.id.menu_logout) {
             logoutUser();
@@ -174,7 +172,6 @@ public class DashActivity extends AppCompatActivity {
     /*
      * Methods
      */
-
     /**
      * Logs out the user and navigates to the StartActivity.
      * If the user is no longer logged in, it starts the StartActivity.
