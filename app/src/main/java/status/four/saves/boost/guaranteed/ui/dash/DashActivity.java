@@ -31,6 +31,7 @@ import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.data.remote.FCMTokenApi;
 import status.four.saves.boost.guaranteed.data.local.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.databinding.ActivityDashBinding;
+import status.four.saves.boost.guaranteed.domain.user.UsersService;
 import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.shared.Permission;
 import status.four.saves.boost.guaranteed.ui.start.StartActivity;
@@ -43,6 +44,8 @@ public class DashActivity extends AppCompatActivity {
     private Permission permission;
     private SharedPreferencesHelper sharedPreferencesHelper;
     private FCMTokenApi fcmTokenApi;
+
+    private UsersService usersService;
 
     private ActivityDashBinding binding;
 
@@ -60,6 +63,7 @@ public class DashActivity extends AppCompatActivity {
         permission = Permission.getInstance(this);
         sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
         fcmTokenApi = FCMTokenApi.getInstance(getApplicationContext());
+        usersService = UsersService.getInstance(getApplicationContext());
 
         permission.requestPermission(Manifest.permission.WRITE_CONTACTS, 1);
         permission.requestPermission(Manifest.permission.READ_CONTACTS, 2);
@@ -195,6 +199,7 @@ public class DashActivity extends AppCompatActivity {
             // Perform the desired action, such as opening a Privacy Policy activity or fragment
             return true;
         } else if (itemId == R.id.menu_logout) {
+            logoutUser();
             return true;
         }
 
@@ -206,5 +211,21 @@ public class DashActivity extends AppCompatActivity {
         super.onBackPressed();
 
         IS_EXITING = true;
+    }
+
+    /*
+     * Methods
+     */
+
+    /**
+     * Logs out the user and navigates to the StartActivity.
+     * If the user is no longer logged in, it starts the StartActivity.
+     */
+    public void logoutUser() {
+        usersService.logoutUser();
+
+        if(!usersService.isUserLoggedIn()){
+            startActivity(new Intent(this, StartActivity.class));
+        }
     }
 }
