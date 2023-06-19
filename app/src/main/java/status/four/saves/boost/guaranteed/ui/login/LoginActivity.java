@@ -15,7 +15,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.domain.user.UsersService;
-import status.four.saves.boost.guaranteed.ui.start.StartActivity;
+import status.four.saves.boost.guaranteed.ui.dash.DashActivity;
 import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.ui.webview.WebViewActivity;
 
@@ -72,9 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         usersService.loginUser(whatsAppPhoneNumber, new UsersService.Callback() {
             @Override
             public void onSuccess(String message) {
-                Logger.d("LoginActivity onClick usersService.loginUser, message:", message);
-
-                startActivity(new Intent(LoginActivity.this, StartActivity.class));
+                startActivity(new Intent(LoginActivity.this, DashActivity.class));
             }
 
             @Override
