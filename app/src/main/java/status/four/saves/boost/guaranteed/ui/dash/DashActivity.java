@@ -35,10 +35,13 @@ import status.four.saves.boost.guaranteed.domain.user.UsersService;
 import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.shared.Permission;
 import status.four.saves.boost.guaranteed.ui.start.StartActivity;
+import status.four.saves.boost.guaranteed.ui.webview.WebViewActivity;
 
 import static status.four.saves.boost.guaranteed.shared.Config.IS_EXITING;
 import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_FCM_PUSH_NOTIFICATION_TOKEN;
 import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER;
+import static status.four.saves.boost.guaranteed.shared.Config.URL_PRIVATE_POLICY;
+import static status.four.saves.boost.guaranteed.shared.Config.URL_TERMS_OF_USE;
 
 public class DashActivity extends AppCompatActivity {
     private Permission permission;
@@ -132,51 +135,6 @@ public class DashActivity extends AppCompatActivity {
     }
 
 
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "Channel Name",
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
-
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                    .build();
-
-            channel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), audioAttributes);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    private void showNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.baseline_contact_page_24)
-                .setContentTitle("Notification Title")
-                .setContentText("Notification Text")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(NOTIFICATION_ID, builder.build());
-    }
-
-    private void requestNotificationPermission() {
-        Intent intent= new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Open app notification settings
-            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
-        } else {
-            // Open application settings
-            Uri uri = Uri.fromParts("package", getPackageName(), null);
-            intent.setData(uri);
-        }
-        startActivity(intent);
-    }
-
     /*
      * Events
      */
@@ -227,5 +185,63 @@ public class DashActivity extends AppCompatActivity {
         if(!usersService.isUserLoggedIn()){
             startActivity(new Intent(this, StartActivity.class));
         }
+    }
+
+    /**
+     * Shows a web page by starting the WebViewActivity with the provided URL and title.
+     * @param url The URL of the web page to display.
+     * @param title The title of the web page.
+     */
+    private void showWebPage(String url, String title) {
+        startActivity(new Intent(this, WebViewActivity.class)
+                .putExtra("url", url)
+                .putExtra("title", title)
+        );
+    }
+
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Channel Name",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                    .build();
+
+            channel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), audioAttributes);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void showNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.baseline_contact_page_24)
+                .setContentTitle("Notification Title")
+                .setContentText("Notification Text")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    private void requestNotificationPermission() {
+        Intent intent= new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Open app notification settings
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+        } else {
+            // Open application settings
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+        }
+        startActivity(intent);
     }
 }
