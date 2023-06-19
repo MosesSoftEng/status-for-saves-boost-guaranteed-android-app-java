@@ -196,7 +196,6 @@ public class DashActivity extends AppCompatActivity {
         );
     }
 
-
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
