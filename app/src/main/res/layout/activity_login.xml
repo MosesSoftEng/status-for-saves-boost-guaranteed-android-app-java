@@ -36,8 +36,9 @@
             android:id="@+id/saveWhatsAppPhoneNumberButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
-            app:icon="@drawable/baseline_save_24" />
+            android:text="Login"
+            app:icon="@drawable/baseline_login_24"
+            app:iconGravity="textEnd" />
 
         <View
             android:layout_width="match_parent"
@@ -45,5 +46,23 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@color/grey" />
+
+        <Button
+            android:id="@+id/termsOfUseButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey"
+            android:backgroundTintMode="add"
+            android:hapticFeedbackEnabled="false"
+            android:text="Terms of use."
+            app:iconGravity="textEnd" />
+
+        <Button
+            android:id="@+id/privatePolicyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey"
+            android:text="Private policy."
+            app:iconGravity="textEnd" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
