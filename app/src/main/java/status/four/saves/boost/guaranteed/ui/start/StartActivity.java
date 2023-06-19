@@ -20,7 +20,6 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        // TODO: Check if terms and private policy are accepted.
         usersService = new UsersService(getApplicationContext());
     }
 
