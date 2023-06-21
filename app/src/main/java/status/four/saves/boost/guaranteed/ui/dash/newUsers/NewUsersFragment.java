@@ -105,7 +105,8 @@ public class NewUsersFragment extends Fragment {
                 if (!recyclerView.canScrollVertically(1)) {
                     Logger.d("DashboardFragment recyclerViewOnScrollListener onScrolled, !recyclerView.canScrollVertically");
 
-                    fetchUsers();
+                    if(!newUsersSwipeRefreshLayout.isRefreshing())
+                        fetchUsers();
                 }
             }
         };
