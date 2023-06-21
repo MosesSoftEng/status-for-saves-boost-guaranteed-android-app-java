@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_save_back">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_save_back"
         android:name="status.four.saves.boost.guaranteed.ui.dash.saveBack.SaveBackFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_save_back" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

@@ -16,13 +16,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-import status.four.saves.boost.guaranteed.databinding.FragmentHomeBinding;
+import status.four.saves.boost.guaranteed.databinding.FragmentSaveBackBinding;
 import status.four.saves.boost.guaranteed.domain.user.User;
 
 public class SaveBackFragment extends Fragment {
     private SaveBackViewModel saveBackViewModel;
 
-    private FragmentHomeBinding binding;
+    private FragmentSaveBackBinding binding;
 
     private SwipeRefreshLayout savedBackSwipeRefreshLayout;
     private RecyclerView savedBackRecyclerView;
@@ -33,7 +33,7 @@ public class SaveBackFragment extends Fragment {
 
         saveBackViewModel = new ViewModelProvider(this, new SaveBackViewModelFactory(getActivity())).get(SaveBackViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentSaveBackBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         savedBackSwipeRefreshLayout = binding.savedBackSwipeRefreshLayout;
