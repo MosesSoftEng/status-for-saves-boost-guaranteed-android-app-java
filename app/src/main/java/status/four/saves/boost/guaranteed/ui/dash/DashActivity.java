@@ -127,7 +127,7 @@ public class DashActivity extends AppCompatActivity {
         // Check if notification permission is granted
         if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {
             // Notifications are enabled
-            showNotification();
+//            showNotification();
         } else {
             // Notifications are not enabled, request permission
             requestNotificationPermission();
