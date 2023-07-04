@@ -157,6 +157,9 @@ public class DashActivity extends AppCompatActivity {
         } else if (itemId == R.id.menu_logout) {
             logoutUser();
             return true;
+        } else if (itemId == R.id.delete_account) {
+            deleteAccount();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
