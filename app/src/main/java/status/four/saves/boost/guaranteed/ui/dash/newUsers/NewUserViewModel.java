@@ -60,24 +60,7 @@ public class NewUserViewModel extends AndroidViewModel {
                 Logger.d("DashboardViewModel fetchNewUsers usersApi.getUsers, message:", message);
 
                 try {
-                    ArrayList<User> newUsersSavedMeList = User.fromJsonArray(message);
-
-                    // Get saved users.
-                    ArrayList<Contact> savedContacts = contactsRepo.getContacts();
-
-                    // Get users that are not saved.
-                    ArrayList<User> unsavedNewUsersSavedMeList = filterUsersBySavedContacts(newUsersSavedMeList, savedContacts);
-
-                    // Add unsaved users to list.
-                    appendUsersToList(unsavedNewUsersSavedMeList, users);
-
-                    //TODO: Get more users if less than limit.
-                    if(
-                            newUsersSavedMeList.size() != 0 && // No more results.
-                                    unsavedNewUsersSavedMeList.size() < PAGINATION_NUMBER // Unsaved contacts not enough.
-                    ) {
-
-                    }
+                    appendUsersToList(User.fromJsonArray(message), users);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
