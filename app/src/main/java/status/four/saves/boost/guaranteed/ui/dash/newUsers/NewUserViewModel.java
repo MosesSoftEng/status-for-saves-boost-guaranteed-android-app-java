@@ -52,7 +52,9 @@ public class NewUserViewModel extends AndroidViewModel {
     }
 
     public void fetchUsers() {
-        usersApi.getUsers(lastIndex, PAGINATION_NUMBER, new UsersApi.Callback() {
+        String loggedInUserPhone = sharedPreferencesHelper.getString(SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER, "");
+
+        usersApi.getUsers(loggedInUserPhone, lastIndex, PAGINATION_NUMBER, new UsersApi.Callback() {
             @Override
             public void onSuccess(String message) {
                 Logger.d("DashboardViewModel fetchNewUsers usersApi.getUsers, message:", message);
