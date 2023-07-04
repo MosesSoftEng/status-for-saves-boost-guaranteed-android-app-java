@@ -179,6 +179,9 @@ public class DashActivity extends AppCompatActivity {
     public void logoutUser() {
         usersService.logoutUser();
 
+        // TODO: Move to its own service.
+        SharedPreferencesHelper.getInstance(getApplicationContext()).removeString(SHARED_PREFS_KEY_FCM_PUSH_NOTIFICATION_TOKEN);
+
         if(!usersService.isUserLoggedIn()){
             startActivity(new Intent(this, StartActivity.class));
         }
