@@ -37,7 +37,7 @@ public class UsersApi {
         params.put("lastIndex", lastIndex);
         params.put("limit", limit);
 
-        // TODO: Create UserAPI class
+        // TODO: Create GET method.
         volleyHelper.makeRequest(
             API_URL + "/users/not-contact/" + loggedInUserPhone,
             Request.Method.GET,
@@ -69,6 +69,34 @@ public class UsersApi {
      * @param callback          The callback to handle the API response.
      */
     public void getUsersSavedMe(String loggedInUserPhone, long lastIndex, int limit, Callback callback) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("lastIndex", lastIndex);
+        params.put("limit", limit);
+
+        volleyHelper.makeRequest(
+                API_URL + "/users/saved/" + loggedInUserPhone,
+                Request.Method.GET,
+                params,
+                null,
+                response -> {
+                    Logger.d(response.toString());
+                    callback.onSuccess(response.optString("data"));
+                },
+                error -> {
+                    Logger.d(error.getMessage());
+                    callback.onError(error);
+                });
+    }
+
+    /**
+     * Retrieves the users who are contacts of the logged-in user from the API.
+     *
+     * @param loggedInUserPhone The phone number of the logged-in user.
+     * @param lastIndex The last index of the fetched data.
+     * @param limit The maximum number of results to fetch.
+     * @param callback The callback to handle the API response.
+     */
+    public void getUsersAreContacts(String loggedInUserPhone, long lastIndex, int limit, Callback callback) {
         Map<String, Object> params = new HashMap<>();
         params.put("lastIndex", lastIndex);
         params.put("limit", limit);
