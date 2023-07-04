@@ -1,6 +1,7 @@
 package status.four.saves.boost.guaranteed.data.remote;
 
 import static status.four.saves.boost.guaranteed.shared.Config.API_URL;
+import static status.four.saves.boost.guaranteed.shared.Config.SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER;
 
 import android.content.Context;
 
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import status.four.saves.boost.guaranteed.data.local.SharedPreferencesHelper;
 import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.shared.VolleyHelper;
 
@@ -21,8 +23,15 @@ public class UsersApi {
     private static UsersApi instance;
     private static VolleyHelper volleyHelper;
 
+    private SharedPreferencesHelper sharedPreferencesHelper;
+
+    String loggedInUserPhone;
+
     public UsersApi(Context context) {
         volleyHelper = VolleyHelper.getInstance(context);
+        sharedPreferencesHelper = SharedPreferencesHelper.getInstance(context);
+
+        loggedInUserPhone = sharedPreferencesHelper.getString(SHARED_PREFS_KEY_USER_WHATSAPP_MOBILE_NUMBER, "");
     }
 
     public static synchronized UsersApi getInstance(Context context) {
@@ -113,6 +122,33 @@ public class UsersApi {
                 error -> {
                     Logger.d(error.getMessage());
                     callback.onError(error);
+                });
+    }
+
+    public void deleteUser(Callback callback) {
+        Map<String, Object> params = new HashMap<>();
+
+        Logger.d("loggedInUserPhone", loggedInUserPhone);
+
+        volleyHelper.makeRequest(
+                API_URL + "/users/delete/" + loggedInUserPhone,
+                Request.Method.GET,
+                params,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Logger.d(response.toString());
+
+                        callback.onSuccess(response.optString("data"));
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Logger.d(error.getMessage());
+
+                        callback.onError(error);
+                    }
                 });
     }
 
