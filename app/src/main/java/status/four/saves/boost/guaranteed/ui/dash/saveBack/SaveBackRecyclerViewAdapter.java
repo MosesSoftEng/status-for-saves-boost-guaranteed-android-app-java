@@ -61,7 +61,10 @@ public class SaveBackRecyclerViewAdapter extends RecyclerView.Adapter<SaveBackRe
 
         public void populateViews(User user) {
             this.user = user;
-            phoneTextView.setText(String.valueOf(user.getPhone()));
+
+            String phoneNumber = String.valueOf(user.getPhone());
+            String maskedPhoneNumber = phoneNumber.substring(0, phoneNumber.length() - 3) + "XXX";
+            phoneTextView.setText(maskedPhoneNumber);
         }
 
         @Override

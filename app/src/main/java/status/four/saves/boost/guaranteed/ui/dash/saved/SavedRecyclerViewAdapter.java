@@ -60,7 +60,10 @@ public class SavedRecyclerViewAdapter extends RecyclerView.Adapter<SavedRecycler
 
         public void populateViews(Contact contact) {
             this.contact = contact;
-            phoneTextView.setText(String.valueOf(contact.getPhone()));
+
+            String phoneNumber = String.valueOf(contact.getPhone());
+            String maskedPhoneNumber = phoneNumber.substring(0, phoneNumber.length() - 3) + "XXX";
+            phoneTextView.setText(maskedPhoneNumber);
         }
 
         @Override
