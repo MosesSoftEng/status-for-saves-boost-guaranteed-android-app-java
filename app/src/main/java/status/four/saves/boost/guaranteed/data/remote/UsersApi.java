@@ -102,7 +102,7 @@ public class UsersApi {
         params.put("limit", limit);
 
         volleyHelper.makeRequest(
-                API_URL + "/users/saved/" + loggedInUserPhone,
+                API_URL + "/users/are-contact/" + loggedInUserPhone,
                 Request.Method.GET,
                 params,
                 null,
