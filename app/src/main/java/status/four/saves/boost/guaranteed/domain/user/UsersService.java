@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import status.four.saves.boost.guaranteed.data.local.SharedPreferencesHelper;
+import status.four.saves.boost.guaranteed.shared.Logger;
 import status.four.saves.boost.guaranteed.shared.VolleyHelper;
 
 public class UsersService {
@@ -51,6 +52,7 @@ public class UsersService {
      */
     public static void loginUser(String whatsAppPhoneNumber, Callback callback) {
         callback.onSuccess("Number saved");
+        Logger.d(whatsAppPhoneNumber);
 
         try {
             JSONObject requestBody = new JSONObject();
