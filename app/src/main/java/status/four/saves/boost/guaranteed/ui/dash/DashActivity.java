@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ import androidx.navigation.ui.NavigationUI;
 import status.four.saves.boost.guaranteed.R;
 import status.four.saves.boost.guaranteed.data.remote.FCMTokenApi;
 import status.four.saves.boost.guaranteed.data.local.SharedPreferencesHelper;
+import status.four.saves.boost.guaranteed.data.remote.UsersApi;
 import status.four.saves.boost.guaranteed.databinding.ActivityDashBinding;
 import status.four.saves.boost.guaranteed.domain.user.UsersService;
 import status.four.saves.boost.guaranteed.shared.Logger;
@@ -50,6 +52,8 @@ public class DashActivity extends AppCompatActivity {
 
     private UsersService usersService;
 
+    private UsersApi usersApi;
+
     private ActivityDashBinding binding;
 
     private static final String CHANNEL_ID = "channel_id";
@@ -67,6 +71,7 @@ public class DashActivity extends AppCompatActivity {
         sharedPreferencesHelper = SharedPreferencesHelper.getInstance(getApplicationContext());
         fcmTokenApi = FCMTokenApi.getInstance(getApplicationContext());
         usersService = UsersService.getInstance(getApplicationContext());
+        usersApi = UsersApi.getInstance(getApplicationContext());
 
         permission.requestPermission(Manifest.permission.WRITE_CONTACTS, 1);
         permission.requestPermission(Manifest.permission.READ_CONTACTS, 2);
@@ -188,6 +193,22 @@ public class DashActivity extends AppCompatActivity {
         if(!usersService.isUserLoggedIn()){
             startActivity(new Intent(this, StartActivity.class));
         }
+    }
+
+    private void deleteAccount() {
+        usersApi.deleteUser(new UsersApi.Callback() {
+            @Override
+            public void onSuccess(String message) {
+                logoutUser();
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Snackbar.make(binding.getRoot(), "Connection failed.", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Retry", v -> deleteAccount())
+                        .show();
+            }
+        });
     }
 
     /**
