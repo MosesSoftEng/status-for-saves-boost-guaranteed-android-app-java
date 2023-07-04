@@ -61,25 +61,8 @@ public class SaveBackViewModel extends AndroidViewModel {
             public void onSuccess(String message) {
                 Logger.d(message);
 
-                try {
-                    ArrayList<User> newUsersSavedMeList = User.fromJsonArray(message);
-
-                    // Get saved users.
-                    ArrayList<Contact> savedContacts = contactsRepo.getContacts();
-
-                    // Get users that are not saved.
-                    ArrayList<User> unsavedNewUsersSavedMeList = filterUsersBySavedContacts(newUsersSavedMeList, savedContacts);
-
-                    // Add unsaved users to list.
-                    appendUsersToList(unsavedNewUsersSavedMeList, usersSavedMeList);
-
-                    //TODO: Get more users if less than limit.
-                    if(
-                            newUsersSavedMeList.size() != 0 && // No more results.
-                            unsavedNewUsersSavedMeList.size() < PAGINATION_NUMBER // Unsaved contacts not enough.
-                    ) {
-
-                    }
+                try{
+                    appendUsersToList(User.fromJsonArray(message), usersSavedMeList);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
