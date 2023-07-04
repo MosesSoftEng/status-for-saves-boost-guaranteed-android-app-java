@@ -32,14 +32,14 @@ public class UsersApi {
         return instance;
     }
 
-    public static void getUsers(long lastIndex, int limit, Callback callback) {
+    public static void getUsers(String loggedInUserPhone, long lastIndex, int limit, Callback callback) {
         Map<String, Object> params = new HashMap<>();
         params.put("lastIndex", lastIndex);
         params.put("limit", limit);
 
         // TODO: Create UserAPI class
         volleyHelper.makeRequest(
-            API_URL + "/users",
+            API_URL + "/users/not-contact/" + loggedInUserPhone,
             Request.Method.GET,
                 params,
             null,
